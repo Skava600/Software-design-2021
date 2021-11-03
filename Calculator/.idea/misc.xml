@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/study/6term/ppo/app/src/Demo/res/layout/activity_main.xml" value="0.14150943396226415" />
+        <entry key="..\:/study/6term/ppo/app/src/DemoDebug/res/drawable/border.xml" value="0.13645833333333332" />
+        <entry key="..\:/study/6term/ppo/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2317948717948718" />
+        <entry key="..\:/study/6term/ppo/app/src/main/res/drawable/border.xml" value="0.25677083333333334" />
+        <entry key="..\:/study/6term/ppo/app/src/main/res/drawable/button_inv.xml" value="0.13645833333333332" />
+        <entry key="..\:/study/6term/ppo/app/src/main/res/drawable/buttoncircle.xml" value="0.2528205128205128" />
+        <entry key="..\:/study/6term/ppo/app/src/main/res/drawable/calc_background.xml" value="0.16354166666666667" />
+        <entry key="..\:/study/6term/ppo/app/src/main/res/drawable/corner.xml" value="0.15989583333333332" />
+        <entry key="..\:/study/6term/ppo/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.24923076923076923" />
+        <entry key="..\:/study/6term/ppo/app/src/main/res/drawable/ic_baseline_policy_24.xml" value="0.24923076923076923" />
+        <entry key="..\:/study/6term/ppo/app/src/main/res/drawable/ic_baseline_share_24.xml" value="0.24923076923076923" />
+        <entry key="..\:/study/6term/ppo/app/src/main/res/drawable/ic_baseline_smartphone_24.xml" value="0.24923076923076923" />
+        <entry key="..\:/study/6term/ppo/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2317948717948718" />
+        <entry key="..\:/study/6term/ppo/app/src/main/res/drawable/left_arrow_background.xml" value="0.13333333333333333" />
+        <entry key="..\:/study/6term/ppo/app/src/main/res/drawable/side_nav_bar.xml" value="0.24923076923076923" />
+        <entry key="..\:/study/6term/ppo/app/src/main/res/drawable/toggle_selector.xml" value="0.1359375" />
+        <entry key="..\:/study/6term/ppo/app/src/main/res/layout-land/activity_main.xml" value="0.2" />
+        <entry key="..\:/study/6term/ppo/app/src/main/res/layout-v26/activity_main.xml" value="0.11614583333333334" />
+        <entry key="..\:/study/6term/ppo/app/src/main/res/layout/activity_main.xml" value="0.128" />
+        <entry key="..\:/study/6term/ppo/app/src/main/res/layout/fragment.xml" value="0.2" />
+        <entry key="..\:/study/6term/ppo/app/src/main/res/layout/fragment_.xml" value="0.2164855072463768" />
+        <entry key="..\:/study/6term/ppo/app/src/main/res/layout/fragment_scientific.xml" value="0.2" />
+        <entry key="..\:/study/6term/ppo/app/src/main/res/layout/fragment_simple.xml" value="0.1296875" />
+        <entry key="..\:/study/6term/ppo/app/src/main/res/layout/header.xml" value="0.2164855072463768" />
+        <entry key="..\:/study/6term/ppo/app/src/main/res/layout/menu.xml" value="0.2" />
+        <entry key="..\:/study/6term/ppo/app/src/main/res/layout/nav_header_main.xml" value="0.21195652173913043" />
+        <entry key="..\:/study/6term/ppo/app/src/main/res/layout/wfragmen.xml" value="0.2164855072463768" />
+        <entry key="..\:/study/6term/ppo/app/src/main/res/menu/activity_main_drawer.xml" value="0.23697916666666666" />
+        <entry key="..\:/study/6term/ppo/app/src/main/res/menu/drawer_menu.xml" value="0.23697916666666666" />
+        <entry key="..\:/study/6term/ppo/app/src/main/res/menu/nav_header_main.xml" value="0.23697916666666666" />
+        <entry key="..\:/study/6term/ppo/app/src/main/res/mipmap-anydpi-v26/calc.xml" value="0.16354166666666667" />
+        <entry key="..\:/study/6term/ppo/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.16354166666666667" />
+        <entry key="..\:/study/6term/ppo/app/src/main/res/mipmap-anydpi-v26/left_arrow_round.xml" value="0.171875" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

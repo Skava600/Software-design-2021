@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">Calculator</string>
+    <string name="_3">3</string>
+    <string name="_2">2</string>
+    <string name="_1">1</string>
+    <string name="_6">6</string>
+    <string name="_5">5</string>
+    <string name="_4">4</string>
+    <string name="_9">9</string>
+    <string name="_7">7</string>
+    <string name="_8">8</string>
+    <string name="_0">0</string>
+    <string name="_coma">,</string>
+    <string name="equal">=</string>
+    <string name="mult">*</string>
+    <string name="minus">-</string>
+    <string name="plus">+</string>
+    <string name="divide">/</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="inv">INV</string>
+    <string name="deg">DEG</string>
+    <string name="rad">RAD</string>
+    <string name="mod">%</string>
+    <string name="sin">sin</string>
+    <string name="sin_1">acos</string>
+    <string name="cos">cos</string>
+    <string name="cos_1">acos</string>
+    <string name="tan">tan</string>
+    <string name="tan_1">atan</string>
+    <string name="root">√</string>
+    <string name="pow2">x^2</string>
+    <string name="Pi">π</string>
+    <string name="exp">e</string>
+    <string name="power">^</string>
+    <string name="leftBrace">(</string>
+    <string name="rightBrace">)</string>
+    <string name="fact">!</string>
+    <string name="log">Log</string>
+    <string name="pow10">10^x</string>
+    <string name="ln">Ln</string>
+    <string name="ex">e^x</string>
+    <string name="bad_result">Bad expression</string>
+</resources>

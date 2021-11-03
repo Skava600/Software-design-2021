@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CalculatorButton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="cornerRadius">0dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:layout_rowWeight">1</item>
+        <item name="android:layout_columnWeight">1</item>
+        <item name="android:layout_gravity">fill</item>
+    </style>
+
+    <style name="ScientificButton" parent="CalculatorButton">
+        <item name="android:textSize">15sp</item>
+        <item name="android:backgroundTint">@color/blue_200</item>
+    </style>
+
+    <style name="InvertedButton" parent="CalculatorButton">
+        <item name="android:textSize">14sp</item>
+        <item name="android:backgroundTint">@color/blue_100</item>
+    </style>
+
+    <style name="SimpleActionButton" parent="CalculatorButton">
+        <item name="android:textSize">20dp</item>
+        <item name="android:backgroundTint">@color/black_200</item>
+    </style>
+
+    <style name="ComplexActionButton" parent="CalculatorButton">
+        <item name="android:textSize">15dp</item>
+        <item name="android:backgroundTint">@color/black_200</item>
+    </style>
+</resources>
