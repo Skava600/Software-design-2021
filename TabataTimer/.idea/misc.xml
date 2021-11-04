@@ -3,8 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/study/6term/ppo/TabataTimer/app/src/main/res/drawable/ic_plus.xml" value="0.12864583333333332" />
         <entry key="..\:/study/6term/ppo/TabataTimer/app/src/main/res/layout/activity_main.xml" value="0.17617753623188406" />
-        <entry key="..\:/study/6term/ppo/TabataTimer/app/src/main/res/layout/fragment_landing.xml" value="0.17617753623188406" />
+        <entry key="..\:/study/6term/ppo/TabataTimer/app/src/main/res/layout/cardview.xml" value="0.4" />
+        <entry key="..\:/study/6term/ppo/TabataTimer/app/src/main/res/layout/fragment_landing.xml" value="0.2" />
+        <entry key="..\:/study/6term/ppo/TabataTimer/app/src/main/res/layout/workout_cardview.xml" value="0.5165289256198347" />
       </map>
     </option>
   </component>
