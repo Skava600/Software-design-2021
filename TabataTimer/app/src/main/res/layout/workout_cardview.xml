@@ -24,17 +24,25 @@
                 android:id="@+id/workoutNameText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
                 android:layout_marginBottom="16dp"
                 android:text="Sample Workout Name"
-                android:textAlignment="center"
-                android:textSize="24sp" />
+                android:textColor="@color/text_color"
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/workoutTimeText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/workoutNameText"
                 android:text="10:05"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="@color/text_color" />
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/workoutTimeText"/>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 

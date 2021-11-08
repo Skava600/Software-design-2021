@@ -2,4 +2,56 @@
     <string name="app_name">TabataTimer</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Preference Strings-->
+    <string name="settings_fragment_title">Settings</string>
+    <string name="delete_all" translatable="false">delete_all</string>
+    <string name="delete_confirmation">Do you want to delete all data?</string>
+    <string name="confirmation">Confirmation</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="preferences_dark_theme_title">Dark theme</string>
+    <string name="preferences_language_title">Language</string>
+    <string name="preferences_font_scale_title">Font scale</string>
+    <string name="preferences_clear_all_title">Clear all data</string>
+    <string name="preferences_delete_all_summary">Clear all data stored on the device</string>
+    <string name="added_successfully">Added successfully!</string>
+    <string name="updated_successfully">Updated successfully!</string>
+    <string name="language" translatable="false">language</string>
+    <string name="font_scale" translatable="false">font_size</string>
+    <string name="dark_theme" translatable="false">dark_theme</string>
+    <string-array name="languageList">
+        <item>"English"</item>
+        <item>"Русский"</item>
+    </string-array>
+
+    <string-array name="languageListData">
+        <item>en</item>
+        <item>ru</item>
+    </string-array>
+
+    <string-array name="fontScaleList">
+        <item>"0.5"</item>
+        <item>"0.75"</item>
+        <item>"1"</item>
+        <item>"1.25"</item>
+        <item>"1.5"</item>
+    </string-array>
+
+    <string-array name="fontScaleListData">
+        <item>"0.5"</item>
+        <item>"0.75"</item>
+        <item>"1"</item>
+        <item>"1.25"</item>
+        <item>"1.5"</item>
+    </string-array>
+
+    <!-- Workout fragment-->
+    <string-array name="manipulate_workout">
+        <item>Edit</item>
+        <item>Preview</item>
+        <item>Delete</item>
+
+    </string-array>
+
+
 </resources>
