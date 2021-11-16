@@ -12,10 +12,11 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        app:cardBackgroundColor="@color/cardview_light_background"
+        app:cardBackgroundColor="@color/colorAccent"
         app:cardCornerRadius="8dp">
 
         <RelativeLayout
+            android:id="@+id/popUpMenu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -26,23 +27,39 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginBottom="16dp"
+                android:layout_toLeftOf="@id/start_workout"
                 android:text="Sample Workout Name"
-                android:textColor="@color/text_color"
+                android:textColor="@color/fontPrimary"
                 android:textSize="30sp" />
 
+            <ImageButton
+                android:id="@+id/start_workout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="false"
+                android:layout_toLeftOf="@id/popUpMenuButton"
+                android:backgroundTint="@color/colorAccent"
+                android:contentDescription="@string/play_button"
+                android:minHeight="48dp"
+                app:srcCompat="@drawable/ic_play_24" />
+
             <TextView
-                android:id="@+id/workoutTimeText"
+                android:id="@+id/intervalTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/workoutNameText"
                 android:text="10:05"
                 android:textAlignment="center"
-                android:textColor="@color/text_color" />
-            <Spinner
-                android:id="@+id/spinner"
+                android:textColor="@color/fontSecondary" />
+
+            <ImageButton
+                android:id="@+id/popUpMenuButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/workoutTimeText"/>
+                android:layout_alignParentEnd="true"
+                android:backgroundTint="@color/colorAccent"
+                android:src="@drawable/ic_more_vert_24" />
+
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 

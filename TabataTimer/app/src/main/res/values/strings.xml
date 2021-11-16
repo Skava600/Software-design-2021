@@ -19,6 +19,8 @@
     <string name="language" translatable="false">language</string>
     <string name="font_scale" translatable="false">font_size</string>
     <string name="dark_theme" translatable="false">dark_theme</string>
+
+    <string name="play_button">button to start workout</string>
     <string-array name="languageList">
         <item>"English"</item>
         <item>"Русский"</item>
@@ -53,5 +55,28 @@
 
     </string-array>
 
+    <string name="workout_title">Workouts: </string>
+
+    <string name="title_activity_timer">TimerActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label" translatable="false">First Fragment</string>
+    <string name="second_fragment_label" translatable="false">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment" translatable="false">Hello first fragment</string>
+    <string name="hello_second_fragment" translatable="false">Hello second fragment. Arg: %1$s</string>
+    <string name="default_timer_text" translatable="false">00:00</string>
+    <string name="number_reps">0 of reps</string>
+    <string name="end_workout">End Workout</string>
+    <string name="place_holder_title">Workout Name</string>
+
+    <!-- Content description-->
+    <string name="add_new_interval">button to add new interval, opening dialog</string>
+    <string name="decrement_time">button to decrement interval time</string>
+    <string name="increment_time">button to increment interval time</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="preview">Preview</string>
 
 </resources>
