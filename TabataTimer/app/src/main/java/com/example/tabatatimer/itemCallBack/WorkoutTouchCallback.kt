@@ -22,6 +22,11 @@ class WorkoutTouchCallback(private var adapter: WorkoutAdapter,
             viewModel.delete(workoutToDelete.workout!!)
             showUndoSnackbar(workoutToDelete.workout!!)
         }
+        else{
+            viewModel.deleteSequenceRef(workoutToDelete.sequence!!.sequenceOfWorkouts.sequenceId!!)
+            viewModel.deleteSequence(workoutToDelete.sequence!!.sequenceOfWorkouts)
+            //showUndoSnackbar(workoutToDelete.workout!!)
+        }
     }
 
     override fun onMove(

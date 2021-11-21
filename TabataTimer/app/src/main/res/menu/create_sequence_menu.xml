@@ -3,10 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/action_settings"
-        android:icon="@drawable/ic_settings_24"
+        android:id="@+id/action_create_sequence"
+        android:icon="@drawable/ic_check_24"
         android:orderInCategory="100"
-        android:title="@string/settings_fragment_title"
-        app:showAsAction="always" />
+        app:showAsAction="always"
+        android:title="TODO" />
 
 </menu>

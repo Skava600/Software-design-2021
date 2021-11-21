@@ -6,9 +6,6 @@ import com.example.tabatatimer.data.WorkoutWithIntervals
 
 class IntervalRepository(private val intervalDao: IntervalDao) {
 
-    fun getIntervalsByWorkout(workoutId: Int): LiveData<List<Interval>> {
-        return this.intervalDao.getByWorkout(workoutId)
-    }
 
     fun getWorkoutWithIntervals(workoutId: Int): LiveData<WorkoutWithIntervals>{
         return this.intervalDao.getWorkoutWithIntervals(workoutId)

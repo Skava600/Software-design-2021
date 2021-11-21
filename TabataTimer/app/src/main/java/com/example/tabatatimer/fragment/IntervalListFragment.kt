@@ -1,12 +1,13 @@
 package com.example.tabatatimer.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,16 +18,20 @@ import com.example.database.IntervalRepository
 import com.example.database.WorkoutRepository
 import com.example.tabatatimer.adapter.IntervalAdapter
 import com.example.tabatatimer.R
+import com.example.tabatatimer.data.WorkoutListData
+import com.example.tabatatimer.data.WorkoutWithIntervals
 import com.example.tabatatimer.itemCallBack.IntervalTouchCallback
 import com.example.tabatatimer.viewmodels.IntervalViewModel
 import com.example.tabatatimer.viewmodels.WorkoutViewModel
 import kotlinx.android.synthetic.main.fragment_interval_list.view.*
+import petrov.kristiyan.colorpicker.ColorPicker
 
 
 class IntervalListFragment() : Fragment(), IntervalAdapter.OnIntervalChangedListener {
 
     private val args: IntervalListFragmentArgs by navArgs()
     private val viewModel: IntervalViewModel by activityViewModels()
+    private val workoutViewModel: WorkoutViewModel by activityViewModels()
     private lateinit var rootView: View
 
     private lateinit var intervalRepository: IntervalRepository
@@ -40,7 +45,7 @@ class IntervalListFragment() : Fragment(), IntervalAdapter.OnIntervalChangedList
         val rootView = inflater.inflate(R.layout.fragment_interval_list, container, false)
         this.rootView = rootView
         val recyclerView = initRecyclerView(rootView.intervalList)
-
+        setHasOptionsMenu(true)
         rootView.intervalViewWorkoutName.text = args.workout.name
         rootView.intervalViewTotalTime.text =  Interval.getIntervalDuration(args.workout.length)
 
@@ -55,6 +60,7 @@ class IntervalListFragment() : Fragment(), IntervalAdapter.OnIntervalChangedList
 
             dialog.show(requireActivity().supportFragmentManager, "fragment_interval_dialog_0")
         }
+
 
 
         return rootView
@@ -81,6 +87,17 @@ class IntervalListFragment() : Fragment(), IntervalAdapter.OnIntervalChangedList
             setHasFixedSize(true)
             layoutManager = recyclerLayout
             adapter = intervalAdapter
+        }
+
+        rootView.start_workout.setOnClickListener {
+            if(recyclerView.adapter!!.itemCount > 0) {
+                findNavController().navigate(IntervalListFragmentDirections.actionListFragmentToTimerActivity(
+                    WorkoutListData(listOf(
+                        WorkoutWithIntervals(args.workout, intervalAdapter.getIntervals()))
+                    )))
+            } else {
+                Toast.makeText(this.context, "This workout is empty!", Toast.LENGTH_LONG).show()
+            }
         }
 
         ItemTouchHelper(
@@ -110,5 +127,20 @@ class IntervalListFragment() : Fragment(), IntervalAdapter.OnIntervalChangedList
         val workoutViewModel = ViewModelProviders.of(this).get(WorkoutViewModel::class.java)
         workoutViewModel.update(args.workout)
         rootView.intervalViewTotalTime.text = Interval.getIntervalDuration(args.workout.length)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.edit_workout_color, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            R.id.edit_color -> {
+                ColorPickerFragment(activity, args.workout, workoutViewModel).showColorPicker()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

@@ -29,6 +29,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
                 ?.setCancelable(false)
                 ?.setPositiveButton(getString(R.string.yes)) { _, _ ->
                     viewModel.deleteAllWorkouts()
+                    viewModel.deleteAllSequences()
                 }
                 ?.setNegativeButton(getString(R.string.no)) { dialog, _ ->
                     dialog.cancel()

@@ -75,6 +75,9 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-common-java8:2.4.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0"
 
-    // Preferences component
+    //colorpicker
+    implementation 'petrov.kristiyan:colorpicker-library:1.1.10'
+
+
 
 }

@@ -78,5 +78,7 @@
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
     <string name="preview">Preview</string>
+    <string name="start_workout">Start Workout</string>
+    <string name="defalut_timer_text">00:00</string>
 
 </resources>

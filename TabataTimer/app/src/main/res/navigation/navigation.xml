@@ -12,10 +12,6 @@
         android:label="Interval Timer"
         tools:layout="@layout/fragment_landing" >
 
-        <action
-
-            android:id="@+id/action_workoutCardView_to_timerActivity"
-            app:destination="@id/timerActivity" />
 
         <action
             android:id="@+id/action_landingFragment_to_intervalListFragment"
@@ -30,14 +26,19 @@
         android:label="Timer"
         tools:layout="@layout/fragment_timer">
         <argument
-            android:name="IntervalList"
-            app:argType="com.example.tabatatimer.data.IntervalListData" />
+            android:name="WorkoutList"
+            app:argType="com.example.tabatatimer.data.WorkoutListData" />
     </activity>
 
     <fragment
         android:id="@+id/intervalListFragment"
         android:name="com.example.tabatatimer.fragment.IntervalListFragment"
         tools:layout="@layout/fragment_interval_list">
+
+        <action
+
+            android:id="@+id/action_listFragment_to_timerActivity"
+            app:destination="@id/timerActivity" />
 
         <argument
             android:name="workout"

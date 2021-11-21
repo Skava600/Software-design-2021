@@ -9,7 +9,7 @@ import com.example.tabatatimer.data.SequenceOfWorkouts
 import com.example.tabatatimer.data.SequenceWorkoutCrossRef
 import com.example.tabatatimer.data.Workout
 
-@Database(entities = [Workout::class, Interval::class, SequenceOfWorkouts::class, SequenceWorkoutCrossRef::class], version = 6, exportSchema = false)
+@Database(entities = [Workout::class, Interval::class, SequenceOfWorkouts::class, SequenceWorkoutCrossRef::class], version = 8, exportSchema = false)
 abstract class AppDatabase: RoomDatabase() {
     abstract fun workoutDao(): WorkoutDao
     abstract fun intervalDao(): IntervalDao

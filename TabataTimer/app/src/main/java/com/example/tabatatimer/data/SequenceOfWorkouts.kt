@@ -4,7 +4,8 @@ import androidx.room.*
 
 @Entity
 data class SequenceOfWorkouts(
-    @PrimaryKey val sequenceId: Int
+    @PrimaryKey(autoGenerate=true) val sequenceId: Int?,
+    var color: Int
 )
 
 @Entity(primaryKeys = ["sequenceId", "workoutId"])

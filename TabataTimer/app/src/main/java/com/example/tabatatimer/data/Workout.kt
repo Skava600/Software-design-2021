@@ -18,4 +18,4 @@ data class WorkoutWithIntervals(
         entityColumn = "workoutId"
     )
     val intervals: List<Interval>
-)
+):Serializable

@@ -10,18 +10,15 @@ import com.example.tabatatimer.data.WorkoutWithIntervals
 interface IntervalDao {
 
     @Insert
-    suspend fun insert(vararg interval: Interval)
+    suspend fun insert(interval: Interval)
 
-
-    @Query("SELECT * FROM interval WHERE workoutId = :workoutId")
-    fun getByWorkout(workoutId: Int): LiveData<List<Interval>>
 
     @Transaction
     @Query("Select * FROM Workout WHERE workoutId = :workoutId")
     fun getWorkoutWithIntervals(workoutId: Int): LiveData<WorkoutWithIntervals>
 
     @Update
-    suspend fun update(vararg interval: Interval)
+    suspend fun update(interval: Interval)
 
 
     @Delete

@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/workout_cardview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="8dp"
@@ -27,21 +28,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginBottom="16dp"
-                android:layout_toLeftOf="@id/start_workout"
                 android:text="Sample Workout Name"
                 android:textColor="@color/fontPrimary"
                 android:textSize="30sp" />
-
-            <ImageButton
-                android:id="@+id/start_workout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="false"
-                android:layout_toLeftOf="@id/popUpMenuButton"
-                android:backgroundTint="@color/colorAccent"
-                android:contentDescription="@string/play_button"
-                android:minHeight="48dp"
-                app:srcCompat="@drawable/ic_play_24" />
 
             <TextView
                 android:id="@+id/intervalTime"
@@ -50,14 +39,15 @@
                 android:layout_below="@+id/workoutNameText"
                 android:text="10:05"
                 android:textAlignment="center"
-                android:textColor="@color/fontSecondary" />
+                android:textColor="@color/fontSecondary"
+                android:textSize="20sp" />
 
             <ImageButton
                 android:id="@+id/popUpMenuButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:backgroundTint="@color/colorAccent"
+                android:minHeight="48dp"
                 android:src="@drawable/ic_more_vert_24" />
 
         </RelativeLayout>

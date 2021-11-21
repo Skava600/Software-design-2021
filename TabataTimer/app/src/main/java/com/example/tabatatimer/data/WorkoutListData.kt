@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class IntervalListData(
-    val List: List<Interval>
+data class WorkoutListData(
+    val List: List<WorkoutWithIntervals>
 
 ) : Parcelable

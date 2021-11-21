@@ -8,7 +8,6 @@ class WorkoutRepository(private val workoutDao: WorkoutDao) {
 
     fun getAllWorkouts(): LiveData<List<Workout>> = workoutDao.getAll()
 
-    fun getAllSequences(): LiveData<List<SequenceWithWorkouts>> = workoutDao.getSequencesWithWorkouts()
 
     suspend fun insert(workout: Workout) {
         workoutDao.insert(workout)

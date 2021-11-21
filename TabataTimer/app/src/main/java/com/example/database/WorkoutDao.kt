@@ -10,7 +10,7 @@ import com.example.tabatatimer.data.WorkoutWithIntervals
 interface WorkoutDao {
 
     @Insert
-    suspend fun insert(vararg workout: Workout)
+    suspend fun insert(workout: Workout)
 
     @Query("SELECT * FROM workout")
     fun getAll(): LiveData<List<Workout>>
@@ -28,7 +28,4 @@ interface WorkoutDao {
     @Query("SELECT * FROM Workout")
     fun getWorkoutsWithIntervals(): LiveData<List<WorkoutWithIntervals>>
 
-    @Transaction
-    @Query("SELECT * FROM SequenceOfWorkouts")
-    fun getSequencesWithWorkouts(): LiveData<List<SequenceWithWorkouts>>
 }
