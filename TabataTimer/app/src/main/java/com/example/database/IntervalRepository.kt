@@ -23,4 +23,5 @@ class IntervalRepository(private val intervalDao: IntervalDao) {
     suspend fun delete(item: Interval) {
         intervalDao.delete(item)
     }
+
 }

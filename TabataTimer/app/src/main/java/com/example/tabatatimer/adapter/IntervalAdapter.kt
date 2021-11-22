@@ -15,7 +15,6 @@ class IntervalAdapter(
     listener: OnIntervalChangedListener
 ) : RecyclerView.Adapter<IntervalAdapter.ViewHolder>() {
     private var intervals : MutableList<Interval>? = null
-    private lateinit var workoutWithIntervals: WorkoutWithIntervals
     interface OnIntervalChangedListener {
         fun onIntervalTimeChanged(interval: Interval, newTime: Int)
         fun onDeleteInterval(interval: Interval)

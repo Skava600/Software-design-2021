@@ -17,17 +17,7 @@ class SequenceRepository(private val sequenceWorkoutDao: SequenceWorkoutDao) {
     }
 
     suspend fun deleteSequence(sequenceOfWorkouts: SequenceOfWorkouts){
-        sequenceWorkoutDao.deleteSequence(sequenceOfWorkouts)
-    }
-
-    suspend fun deleteSequenceRef(sequenceId: Int)
-    {
-        sequenceWorkoutDao.deleteSequenceCrossRef(sequenceId)
-    }
-
-    suspend fun deleteAllSequences()
-    {
-        sequenceWorkoutDao.deleteAllSequencesTrans()
+        sequenceWorkoutDao.deleteSequenceWithRefs(sequenceOfWorkouts)
     }
 
     fun getAllSequences(): LiveData<List<SequenceWithWorkouts>> = sequenceWorkoutDao.getSequencesWithWorkouts()

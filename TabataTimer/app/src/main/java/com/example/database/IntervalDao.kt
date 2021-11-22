@@ -23,4 +23,6 @@ interface IntervalDao {
 
     @Delete
     suspend fun delete(interval: Interval)
+
+
 }

@@ -67,21 +67,9 @@ class WorkoutViewModel(app: Application): AndroidViewModel(app) {
         }
     }
 
-    fun deleteSequenceRef(sequenceId: Int){
+    fun wipeData(){
         viewModelScope.launch(Dispatchers.IO) {
-            sequenceRepository.deleteSequenceRef(sequenceId)
-        }
-    }
-
-    fun deleteAllWorkouts(){
-        viewModelScope.launch(Dispatchers.IO){
-            workoutRepository.deleteAllWorkouts()
-        }
-    }
-
-    fun deleteAllSequences(){
-        viewModelScope.launch(Dispatchers.IO) {
-            sequenceRepository.deleteAllSequences()
+            workoutRepository.wipeData()
         }
     }
 

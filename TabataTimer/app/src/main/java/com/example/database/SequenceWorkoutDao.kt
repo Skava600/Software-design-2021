@@ -22,18 +22,13 @@ interface SequenceWorkoutDao {
     @Query("DELETE FROM sequenceworkoutcrossref WHERE sequenceId=:sequenceId")
     suspend fun deleteSequenceCrossRef(sequenceId: Int)
 
-    @Query("DELETE FROM sequenceofworkouts")
-    suspend fun deleteAllSequences()
-
-    @Query("DELETE FROM SEQUENCEWORKOUTCROSSREF")
-    suspend fun deleteAllRefs()
-
     @Transaction
-    suspend fun deleteAllSequencesTrans()
+    suspend fun deleteSequenceWithRefs(sequence: SequenceOfWorkouts)
     {
-        deleteAllSequences()
-        deleteAllRefs()
+        deleteSequenceCrossRef(sequence.sequenceId!!)
+        deleteSequence(sequence)
     }
+
 
     @Transaction
     @Query("SELECT * FROM SequenceOfWorkouts")
