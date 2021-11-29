@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/sequence_cardview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="8dp"
@@ -21,6 +22,25 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/sequenceTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sequenceContent"
+                android:text="10:05"
+                android:textAlignment="center"
+                android:textColor="@color/fontSecondary"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/sequenceContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sequenceNameText"
+                android:textAlignment="textStart"
+                android:textColor="@color/fontPrimary"
+                android:textSize="25sp" />
+
+            <TextView
                 android:id="@+id/sequenceNameText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -29,6 +49,14 @@
                 android:text="Sequence:"
                 android:textColor="@color/fontPrimary"
                 android:textSize="30sp" />
+
+            <ImageButton
+                android:id="@+id/seqPopUpMenuButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:minHeight="48dp"
+                android:src="@drawable/ic_more_vert_24" />
 
 
         </RelativeLayout>

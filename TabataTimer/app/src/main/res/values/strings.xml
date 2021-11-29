@@ -80,5 +80,12 @@
     <string name="preview">Preview</string>
     <string name="start_workout">Start Workout</string>
     <string name="defalut_timer_text">00:00</string>
+    <string name="sequence_title">Sequence:</string>
+    <string name="interval_name_title">Intreval Name</string>
+    <string name="notification_channel">default.channel</string>
+
+    <string name="notification_rewind_action">REWIND</string>
+    <string name="notification_pause_action">PAUSE</string>
+    <string name="notification_fast_forward_action">FAST FORWARD</string>
 
 </resources>

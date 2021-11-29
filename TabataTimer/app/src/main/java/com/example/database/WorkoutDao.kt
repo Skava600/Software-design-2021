@@ -26,7 +26,7 @@ interface WorkoutDao {
     @Query("DELETE FROM interval WHERE workoutId=:workoutId")
     suspend fun deleteWorkoutIntervals(workoutId:Int)
 
-    @Query("Delete FROM sequenceworkoutcrossref WHERE workoutId=:workoutId")
+    @Query("Delete FROM sequenceworkoutcrossref WHERE fk_workout_id=:workoutId")
     suspend fun deleteWorkoutRefInSequences(workoutId: Int)
 
     @Transaction

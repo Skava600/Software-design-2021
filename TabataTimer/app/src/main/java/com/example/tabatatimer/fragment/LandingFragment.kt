@@ -67,7 +67,8 @@ class LandingFragment : Fragment(), AdapterView.OnItemClickListener {
         actionbar.setHomeAsUpIndicator(R.drawable.ic_close_24)
         val addSequence = view.findViewById<FloatingActionButton>(R.id.newSequenceButton)
         addSequence.setOnClickListener {
-            showCreatingSequenceMenu()
+            if (recyclerAdapter!!.getData().count() >= 2)
+                showCreatingSequenceMenu()
         }
 
         ItemTouchHelper(
@@ -77,17 +78,16 @@ class LandingFragment : Fragment(), AdapterView.OnItemClickListener {
             )
         ).attachToRecyclerView(view.cardRecyclerView)
 
-        sequenceRepository.getAllSequences().observe(
+
+
+         viewModel.getAllSequences().observe(
             viewLifecycleOwner,
             {
                 sequences -> viewModel.getAllWorkouts().observe(viewLifecycleOwner,
                 {
                     workouts ->    recyclerAdapter?.setData(SequenceWorkoutData.merge(sequences, workouts))
-                }
-            )
-
-            }
-        )
+                })
+            })
 
         view.findViewById<RecyclerView>(R.id.cardRecyclerView).apply {
             layoutManager = recyclerLayout
@@ -105,7 +105,7 @@ class LandingFragment : Fragment(), AdapterView.OnItemClickListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem) : Boolean{
-        if (workoutsToSequence!!.count() < 2 && item.itemId == R.id.action_create_sequence)
+        if ((workoutsToSequence!!.count() < 2) && item.itemId == R.id.action_create_sequence)
         {
             return false
         }
@@ -116,14 +116,15 @@ class LandingFragment : Fragment(), AdapterView.OnItemClickListener {
 
             R.id.action_create_sequence -> {
                 insertSequence()
-                workoutsToSequence = mutableListOf()
                 return true
             }
             android.R.id.home -> {
                 for (position in workoutsToSequence!!)
                 {
-                    recyclerLayout!!.findViewByPosition(position)!!.findViewById<CardView>(R.id.workout_cardview)
-                        .setCardBackgroundColor(recyclerAdapter!!.getData()[position].workout!!.color)
+                    val color = getColorData(recyclerAdapter!!.getData()[position].type, position)
+                    val cardViewId = getCardViewId(recyclerAdapter!!.getData()[position].type)
+                    recyclerLayout!!.findViewByPosition(position)!!.findViewById<CardView>(cardViewId)
+                        .setCardBackgroundColor(color)
                 }
                 workoutsToSequence = mutableListOf()
                 return true
@@ -135,18 +136,19 @@ class LandingFragment : Fragment(), AdapterView.OnItemClickListener {
     override fun onItemClick(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
         if (isInitSequence!!)
         {
+            val cardViewId = getCardViewId(recyclerAdapter!!.getData()[p2].type)
+            var color = getColorData(recyclerAdapter!!.getData()[p2].type, p2)
+
             if (!workoutsToSequence!!.contains(p2)) {
+                color = resources.getColor(R.color.colorAccentGreen)
                 workoutsToSequence!!.add(p2)
-                p1!!.findViewById<CardView>(R.id.workout_cardview)
-                    .setCardBackgroundColor(resources.getColor(R.color.colorAccentGreen))
             }
             else {
                 workoutsToSequence!!.remove(p2)
-                p1!!.findViewById<CardView>(R.id.workout_cardview)
-                    .setCardBackgroundColor(resources.getColor(R.color.colorAccent))
             }
 
-
+            p1!!.findViewById<CardView>(cardViewId)
+                .setCardBackgroundColor(color)
         }
     }
 
@@ -163,6 +165,7 @@ class LandingFragment : Fragment(), AdapterView.OnItemClickListener {
         actionbar.setDisplayHomeAsUpEnabled(true)
         menu.findItem(R.id.action_create_sequence).isVisible = true
 
+
     }
 
     private fun hideCreatingSequenceMenu()
@@ -177,19 +180,60 @@ class LandingFragment : Fragment(), AdapterView.OnItemClickListener {
 
     private fun insertSequence()
     {
-        viewModel.insertSequence(SequenceOfWorkouts(null, R.color.color5))
-        for (position in workoutsToSequence!!)
-        {
-            val listWorkoutsSequence = recyclerAdapter!!.getData()
-            if (listWorkoutsSequence[position].workout != null) {
-                viewModel.insertSequenceCrossRef(SequenceWorkoutCrossRef(listWorkoutsSequence.count { it ->
-                    it.sequence != null
-                } + 1, listWorkoutsSequence[position].workout!!.workoutId!!))
-                recyclerLayout!!.findViewByPosition(position)!!
-                    .findViewById<CardView>(R.id.workout_cardview)
-                    .setCardBackgroundColor(recyclerAdapter!!.getData()[position].workout!!.color)
+        val addSequences: (Long) -> Unit = {
+            for (position in workoutsToSequence!!)
+            {
+                val data = recyclerAdapter!!.getData()[position]
+                if (data.workout != null) {
+                    viewModel.insertSequenceCrossRef(SequenceWorkoutCrossRef(it.toInt(), data.workout!!.workoutId!!))
+                    recyclerLayout!!.findViewByPosition(position)!!
+                        .findViewById<CardView>(R.id.workout_cardview)
+                        .setCardBackgroundColor(recyclerAdapter!!.getData()[position].workout!!.color)
+                }
+                else
+                {
+                    for (workout in data.sequence!!.workouts)
+                    {
+                        viewModel.insertSequenceCrossRef(SequenceWorkoutCrossRef(it.toInt(), workout.workoutId!!))
+
+                    }
+                    recyclerLayout!!.findViewByPosition(position)!!
+                        .findViewById<CardView>(R.id.sequence_cardview)
+                        .setCardBackgroundColor(data.sequence!!.sequenceOfWorkouts.color)
+                }
+            }
+            workoutsToSequence = mutableListOf()
+        }
+            viewModel.insertSequence(SequenceOfWorkouts(null, R.color.color3), addSequences)
+
+
+    }
+
+    private fun getCardViewId(type: Int): Int {
+        return when(type){
+            1 -> {
+                R.id.sequence_cardview
+            }
+            2 -> {
+                R.id.workout_cardview
+            }
+            else -> {
+                0
             }
         }
     }
 
+    private fun getColorData(type: Int, pos: Int): Int{
+        return when(type){
+            1 -> {
+                recyclerAdapter!!.getData()[pos].sequence!!.sequenceOfWorkouts.color
+            }
+            2 -> {
+                recyclerAdapter!!.getData()[pos].workout!!.color
+            }
+            else -> {
+                0
+            }
+        }
+    }
 }

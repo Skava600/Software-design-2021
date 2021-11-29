@@ -15,9 +15,11 @@ import com.example.tabatatimer.fragment.LandingFragment
 import com.example.tabatatimer.fragment.LandingFragmentDirections
 import com.example.tabatatimer.viewmodels.WorkoutViewModel
 import android.widget.AdapterView.OnItemClickListener
+import kotlinx.android.synthetic.main.sequence_cardview.view.*
+import kotlinx.android.synthetic.main.workout_cardview.view.*
 
 
-class WorkoutAdapter(): RecyclerView.Adapter<WorkoutAdapter.WorkoutViewHolder>() {
+class WorkoutAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
 
@@ -38,17 +40,171 @@ class WorkoutAdapter(): RecyclerView.Adapter<WorkoutAdapter.WorkoutViewHolder>()
 
 
 
-    class WorkoutViewHolder(val workoutView: View,
-                            private val onOnItemClickListener: OnItemClickListener):
+    class WorkoutViewHolder(
+        private val workoutView: View,
+        private val onItemClickListener: OnItemClickListener,
+        private val fragment: Fragment):
         RecyclerView.ViewHolder(workoutView), View.OnClickListener {
         init {
             workoutView.setOnClickListener(this);
         }
+
+        fun bind(position: Int, workout: Workout) {
+            val color = workout.color
+            workoutView.workout_cardview.setCardBackgroundColor(color)
+
+            workoutView.popUpMenuButton.setBackgroundColor(color)
+
+            val workoutName = workoutView.workoutNameText
+            val workoutTime = workoutView.intervalTime
+
+            workoutName.text = workout.name
+            workoutTime.text = Interval.getIntervalDuration(workout.length) + " minutes"
+
+            val popUpMenuButton = workoutView.popUpMenuButton
+
+            popUpMenuButton.setOnClickListener {
+                val landFrag = fragment as LandingFragment
+                if (!landFrag.isInitSequence!!) {
+                    val popup = PopupMenu(workoutView.context, popUpMenuButton)
+                    val inflater: MenuInflater = popup.menuInflater
+                    inflater.inflate(R.menu.actions_menu, popup.menu)
+                    popup.setOnMenuItemClickListener {
+                        onWorkoutMenuClickListener(it, workout)
+                    }
+
+                    popup.show()
+                }
+            }
+        }
+
+        private fun onWorkoutMenuClickListener(it: MenuItem, workout: Workout) : Boolean
+        {
+            val viewModel = ViewModelProviders.of(fragment).get(WorkoutViewModel::class.java)
+            val i = it.getItemId()
+            when (i) {
+                R.id.menuDelete -> {
+                    viewModel.delete(workout)
+                    return true
+                }
+                R.id.menuEdit -> {
+                    findNavController(fragment).navigate(
+                        LandingFragmentDirections.actionLandingFragmentToIntervalListFragment(
+                            workout
+                        )
+                    )
+                    return true
+                }
+                R.id.menuPreview -> {
+                    //do something
+                    return true;
+                }
+                else -> {
+                    return false
+                }
+            }
+        }
+
         override fun onClick(view:View?) {
             workoutView.findViewById<ImageButton>(R.id.popUpMenuButton).callOnClick()
-            onOnItemClickListener.onItemClick(null, view, adapterPosition, view!!.id.toLong())
+            onItemClickListener.onItemClick(null, view, adapterPosition, view!!.id.toLong())
         }
     }
+
+    class SequenceViewHolder(private val sequenceView: View,
+                             private val onItemClickListener: OnItemClickListener,
+                             private val fragment: Fragment):
+            RecyclerView.ViewHolder(sequenceView), View.OnClickListener {
+
+        val viewModel : WorkoutViewModel
+        init {
+            sequenceView.setOnClickListener(this);
+            viewModel = ViewModelProviders.of(fragment).get(WorkoutViewModel::class.java)
+        }
+
+        fun bind(position: Int, sequence: SequenceWithWorkouts) {
+            if (sequence.workouts.count() == 1)
+            {
+                viewModel.deleteSequence(sequence.sequenceOfWorkouts)
+            }
+            val color = sequence.sequenceOfWorkouts.color
+            sequenceView.sequence_cardview.setCardBackgroundColor(color)
+
+            sequenceView.seqPopUpMenuButton.setBackgroundColor(color)
+
+            val sequenceNameText = sequenceView.sequenceNameText
+
+            val sequenceContent = sequenceView.sequenceContent
+
+            val sequenceTimeText = sequenceView.sequenceTime
+
+            sequenceNameText.text = sequenceView.context.getString(R.string.sequence_title)
+            sequenceContent.text = ""
+            var i = 0
+            var time = 0
+            while (i < sequence.workouts.count())
+            {
+                if (i < 5)
+                {
+                    sequenceContent.append("\n" + sequence.workouts[i].name +
+                            "\t" + Interval.getIntervalDuration(sequence.workouts[i].length))
+                }
+
+                time += sequence.workouts[i].length
+                i++
+            }
+
+            if (sequence.workouts.count() > 5)
+            {
+                sequenceContent.append("\n" + ". . .")
+            }
+
+            sequenceTimeText.text = Interval.getIntervalDuration(time)
+
+            val popupMenu = sequenceView.findViewById<ImageButton>(R.id.seqPopUpMenuButton)
+            popupMenu.setOnClickListener {
+                val landFrag = fragment as LandingFragment
+                if (!landFrag.isInitSequence!!) {
+                    val popup = PopupMenu(sequenceView.context, popupMenu)
+                    val inflater: MenuInflater = popup.menuInflater
+                    inflater.inflate(R.menu.actions_menu, popup.menu)
+                    popup.setOnMenuItemClickListener {
+                        onSequenceMenuClickListener(it, sequence.sequenceOfWorkouts)
+                    }
+
+                    popup.show()
+                }
+            }
+        }
+
+        private fun onSequenceMenuClickListener(it:MenuItem, sequenceOfWorkouts: SequenceOfWorkouts): Boolean{
+            val i = it.getItemId()
+            when (i) {
+                R.id.menuDelete -> {
+                    viewModel.deleteSequence(sequenceOfWorkouts)
+                    return true
+                }
+                R.id.menuEdit -> {
+
+                    return true
+                }
+                R.id.menuPreview -> {
+                    //do something
+                    return true;
+                }
+                else -> {
+                    return false
+                }
+            }
+        }
+
+
+        override fun onClick(view: View?) {
+            sequenceView.findViewById<ImageButton>(R.id.seqPopUpMenuButton).callOnClick()
+            onItemClickListener.onItemClick(null, view, adapterPosition, view!!.id.toLong())
+        }
+    }
+
 
     fun setData(newSequenceWorkoutData: List<SequenceWorkoutData>)
     {
@@ -60,13 +216,18 @@ class WorkoutAdapter(): RecyclerView.Adapter<WorkoutAdapter.WorkoutViewHolder>()
 
     fun getData(): List<SequenceWorkoutData> = this.datas!!
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorkoutAdapter.WorkoutViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
             viewType,
             parent,
             false
         )
-        return WorkoutViewHolder(view, onItemClickListener!!)
+
+        if (viewType == R.layout.workout_cardview) {
+            return WorkoutViewHolder(view, onItemClickListener!!, fragment!!)
+        }
+
+        return SequenceViewHolder(view, onItemClickListener!!, fragment!!)
 
     }
 
@@ -78,98 +239,21 @@ class WorkoutAdapter(): RecyclerView.Adapter<WorkoutAdapter.WorkoutViewHolder>()
         }
     }
 
-    override fun onBindViewHolder(holder: WorkoutViewHolder, position: Int) {
-        if (datas?.get(position)?.type == 1)
-        {
-            val sequenceNameText =
-                holder.workoutView.findViewById<TextView>(R.id.sequenceNameText)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
-            val sequence = datas?.get(position)?.sequence
+        when(holder){
+            is WorkoutViewHolder -> {
+                holder.bind(position, datas!!.get(position).workout!!)
+            }
 
-            setBackgroundViewColor(holder, position, true)
-        }
-        else {
-            initWorkoutViewHolder(holder, position)
-        }
-
-
-
-
-    }
-
-    private fun setBackgroundViewColor(viewHolder: WorkoutAdapter.WorkoutViewHolder, position: Int, isSequence: Boolean) {
-        if (isSequence)
-        {
-
-        }
-        else{
-            val color = datas!![position].workout!!.color
-            viewHolder.workoutView.findViewById<CardView>(
-                R.id.workout_cardview
-            ).setCardBackgroundColor(color)
-
-            viewHolder.workoutView.findViewById<ImageButton>(
-                R.id.popUpMenuButton
-            ).setBackgroundColor(color)
+            is SequenceViewHolder -> {
+                holder.bind(position, datas!!.get(position).sequence!!)
+            }
         }
     }
-
 
     override fun getItemCount(): Int {
         return datas?.count() ?: 0
-    }
-
-
-    private fun initWorkoutViewHolder(holder: WorkoutViewHolder, position: Int)
-    {
-        val workoutName =
-            holder.workoutView.findViewById<TextView>(R.id.workoutNameText)
-        val workoutTime =
-            holder.workoutView.findViewById<TextView>(R.id.intervalTime)
-
-        val workout = datas?.get(position)?.workout!!
-        workoutName.text = workout.name
-        workoutTime.text = workout.length.toString() + " minutes"
-
-        setBackgroundViewColor(holder, position, false)
-
-        val popUpMenuButton = holder.workoutView.findViewById<ImageButton>(R.id.popUpMenuButton)
-
-        popUpMenuButton.setOnClickListener {
-            val landFrag = fragment as LandingFragment
-            if (!landFrag.isInitSequence!!) {
-                val popup = PopupMenu(holder.workoutView.context, popUpMenuButton)
-                val inflater: MenuInflater = popup.menuInflater
-                inflater.inflate(R.menu.actions_menu, popup.menu)
-                popup.setOnMenuItemClickListener {
-                    val i = it.getItemId()
-                    when (i) {
-                        R.id.menuDelete -> {
-                            viewModel!!.delete(workout)
-                            true
-                        }
-                        R.id.menuEdit -> {
-                            findNavController(fragment!!).navigate(
-                                LandingFragmentDirections.actionLandingFragmentToIntervalListFragment(
-                                    workout
-                                )
-                            )
-                            true
-                        }
-                        R.id.menuPreview -> {
-                            //do something
-                            true;
-                        }
-                        else -> {
-                            false
-                        }
-                    }
-
-                }
-                popup.show()
-            }
-        }
-
     }
 
 }

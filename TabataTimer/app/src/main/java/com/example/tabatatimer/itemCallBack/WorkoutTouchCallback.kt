@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tabatatimer.adapter.WorkoutAdapter
 import com.example.tabatatimer.data.Workout
+import com.example.tabatatimer.fragment.LandingFragment
 import com.example.tabatatimer.viewmodels.WorkoutViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -14,13 +15,24 @@ class WorkoutTouchCallback(private var adapter: WorkoutAdapter,
 ) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
     private var viewModel: WorkoutViewModel = ViewModelProviders.of(fragment).get(WorkoutViewModel::class.java)
 
+
+    override fun getSwipeDirs (recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
+
+        if ((fragment as LandingFragment).isInitSequence!!)
+        {
+            return 0
+        }
+
+        return super.getSwipeDirs(recyclerView, viewHolder)
+    }
+
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         val position = viewHolder.adapterPosition
         val workoutToDelete = adapter.getData()[position]
 
         if (workoutToDelete.sequence == null) {
             viewModel.delete(workoutToDelete.workout!!)
-            showUndoSnackbar(workoutToDelete.workout!!)
+            //showUndoSnackbar(workoutToDelete.workout!!)
         }
         else{
             viewModel.deleteSequence(workoutToDelete.sequence!!.sequenceOfWorkouts)

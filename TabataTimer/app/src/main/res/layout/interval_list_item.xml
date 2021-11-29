@@ -27,18 +27,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@id/intervalTime"
+                android:layout_toRightOf="@id/repsButton"
                 android:backgroundTint="@color/colorAccent"
                 android:contentDescription="@string/decrement_time"
                 android:minHeight="48dp"
                 app:srcCompat="@drawable/ic_minus_24" />
 
-            <TextView
+            <EditText
                 android:id="@+id/intervalName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/intervalType"
                 android:layout_marginBottom="16dp"
-                android:text="Sample Workout Name"
+                android:inputType="textPersonName"
+                android:text="Sample Interval Name"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display2"
                 android:textColor="@color/fontPrimary"
@@ -72,10 +74,20 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@id/intervalTime"
                 android:layout_alignParentEnd="true"
+                android:layout_marginRight="58dp"
                 android:backgroundTint="@color/colorAccent"
                 android:contentDescription="@string/increment_time"
                 android:minHeight="48dp"
                 app:srcCompat="@drawable/ic_add_24" />
+
+            <ToggleButton
+                android:id="@+id/repsButton"
+                android:layout_width="58dp"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/intervalTime"
+                android:background="@drawable/ic_stopwatch_24"
+                android:backgroundTint="@color/colorAccent"
+                android:textSize="0sp" />
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

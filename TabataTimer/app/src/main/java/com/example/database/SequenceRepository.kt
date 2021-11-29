@@ -8,8 +8,8 @@ import com.example.tabatatimer.data.Workout
 
 class SequenceRepository(private val sequenceWorkoutDao: SequenceWorkoutDao) {
 
-    suspend fun insertSequence(sequenceOfWorkouts: SequenceOfWorkouts) {
-        sequenceWorkoutDao.insertSequence(sequenceOfWorkouts)
+    suspend fun insertSequence(sequenceOfWorkouts: SequenceOfWorkouts): Long {
+        return sequenceWorkoutDao.insertSequence(sequenceOfWorkouts)
     }
 
     suspend fun insertSequenceCrossRef(sequenceWorkoutCrossRef: SequenceWorkoutCrossRef){

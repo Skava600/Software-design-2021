@@ -68,7 +68,12 @@
     <string name="decrement_time">кнопка уменьшения времени на единицу</string>
     <string name="increment_time">кнопка увеличения времени на единицу</string>
     <string name="play_button">кнопка старта тренировки</string>
-    <string name="delete">Delete</string>
-    <string name="edit">Edit</string>
-    <string name="preview">Preview</string>
+
+    <!-- PopUp menu !-->
+    <string name="delete">Удалить</string>
+    <string name="edit">Редактировать</string>
+    <string name="preview">Предпросмотр</string>
+
+
+    <string name="sequence_title">Последовательность:</string>
 </resources>

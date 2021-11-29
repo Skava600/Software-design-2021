@@ -11,15 +11,15 @@ interface SequenceWorkoutDao {
 
 
     @Insert
-    suspend fun insertSequence(sequence : SequenceOfWorkouts)
+    suspend fun insertSequence(sequence : SequenceOfWorkouts) : Long
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertSequenceSongRef(sequenceSongRef :SequenceWorkoutCrossRef)
 
     @Delete
     suspend fun deleteSequence(sequence: SequenceOfWorkouts)
 
-    @Query("DELETE FROM sequenceworkoutcrossref WHERE sequenceId=:sequenceId")
+    @Query("DELETE FROM sequenceworkoutcrossref WHERE fk_sequence_id=:sequenceId")
     suspend fun deleteSequenceCrossRef(sequenceId: Int)
 
     @Transaction

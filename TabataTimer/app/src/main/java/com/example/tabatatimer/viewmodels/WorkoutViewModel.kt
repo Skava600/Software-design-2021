@@ -1,20 +1,25 @@
 package com.example.tabatatimer.viewmodels
 
 import android.app.Application
+import android.content.Context
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.database.AppDatabase
 import com.example.database.SequenceRepository
-import com.example.tabatatimer.data.Workout
 import com.example.database.WorkoutRepository
-import com.example.tabatatimer.data.SequenceOfWorkouts
-import com.example.tabatatimer.data.SequenceWorkoutCrossRef
+import com.example.tabatatimer.data.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class WorkoutViewModel(app: Application): AndroidViewModel(app) {
     private var allWorkouts: LiveData<List<Workout>>
+    private var allSequences: LiveData<List<SequenceWithWorkouts>>
+    private var allWorkInt: LiveData<List<WorkoutWithIntervals>>
     private var workoutRepository: WorkoutRepository
     private var sequenceRepository: SequenceRepository
 
@@ -27,7 +32,11 @@ class WorkoutViewModel(app: Application): AndroidViewModel(app) {
         workoutRepository = WorkoutRepository(workoutDao)
         sequenceRepository = SequenceRepository(sequenceWorkoutDao)
 
-        allWorkouts = workoutDao.getAll()
+        allWorkouts = workoutRepository.getAllWorkouts()
+
+        allWorkInt = workoutRepository.getWorkoutsWithInt()
+
+        allSequences = sequenceRepository.getAllSequences()
     }
 
     fun insert(workout: Workout) {
@@ -36,11 +45,11 @@ class WorkoutViewModel(app: Application): AndroidViewModel(app) {
         }
     }
 
-    fun insertSequence(sequence: SequenceOfWorkouts) {
-        viewModelScope.launch(Dispatchers.IO) {
-            sequenceRepository.insertSequence(sequence)
-        }
-    }
+   fun insertSequence(sequence: SequenceOfWorkouts,  callback: (Long) -> Unit)  = viewModelScope.launch(Dispatchers.IO) {
+       val id = sequenceRepository.insertSequence(sequence)
+       callback.invoke(id)
+   }
+
 
     fun insertSequenceCrossRef(sequenceWorkoutCrossRef: SequenceWorkoutCrossRef) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -75,5 +84,8 @@ class WorkoutViewModel(app: Application): AndroidViewModel(app) {
 
     fun getAllWorkouts(): LiveData<List<Workout>> = this.allWorkouts
 
+    fun getAllWorkInt(): LiveData<List<WorkoutWithIntervals>> = this.allWorkInt
+
+    fun getAllSequences(): LiveData<List<SequenceWithWorkouts>> = this.allSequences
 
 }

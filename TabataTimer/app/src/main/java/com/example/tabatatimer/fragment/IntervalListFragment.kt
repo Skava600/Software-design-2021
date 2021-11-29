@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -24,7 +25,6 @@ import com.example.tabatatimer.itemCallBack.IntervalTouchCallback
 import com.example.tabatatimer.viewmodels.IntervalViewModel
 import com.example.tabatatimer.viewmodels.WorkoutViewModel
 import kotlinx.android.synthetic.main.fragment_interval_list.view.*
-import petrov.kristiyan.colorpicker.ColorPicker
 
 
 class IntervalListFragment() : Fragment(), IntervalAdapter.OnIntervalChangedListener {
@@ -95,6 +95,7 @@ class IntervalListFragment() : Fragment(), IntervalAdapter.OnIntervalChangedList
                     WorkoutListData(listOf(
                         WorkoutWithIntervals(args.workout, intervalAdapter.getIntervals()))
                     )))
+
             } else {
                 Toast.makeText(this.context, "This workout is empty!", Toast.LENGTH_LONG).show()
             }
@@ -121,12 +122,41 @@ class IntervalListFragment() : Fragment(), IntervalAdapter.OnIntervalChangedList
         }
     }
 
-    override fun onDeleteInterval(interval: Interval) {
-        args.workout.length -= interval.time!!
-        viewModel.delete(interval)
+    override fun onRepsCountChanged(interval: Interval, newCount: Int) {
+
+        if (newCount <= 0)
+        {
+            viewModel.delete(interval)
+        }
+        else{
+            interval.reps = newCount
+            viewModel.update(interval)
+        }
+    }
+
+    override fun onRepsChange(interval: Interval) {
+        when (interval.time){
+            null ->{
+                interval.time = 20
+                interval.reps = null
+                args.workout.length += interval.time!!
+                viewModel.update(interval)
+            }
+            else ->{
+                args.workout.length -= interval.time!!
+                viewModel.update(interval)
+                interval.reps = 1
+                interval.time = null
+            }
+        }
+
         val workoutViewModel = ViewModelProviders.of(this).get(WorkoutViewModel::class.java)
         workoutViewModel.update(args.workout)
         rootView.intervalViewTotalTime.text = Interval.getIntervalDuration(args.workout.length)
+    }
+
+    override fun onIntervalChanged(interval: Interval) {
+        viewModel.update(interval)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -140,7 +170,10 @@ class IntervalListFragment() : Fragment(), IntervalAdapter.OnIntervalChangedList
                 ColorPickerFragment(activity, args.workout, workoutViewModel).showColorPicker()
                 true
             }
-            else -> super.onOptionsItemSelected(item)
+            else ->{
+                super.onOptionsItemSelected(item)
+            }
+
         }
     }
 }

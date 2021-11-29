@@ -75,10 +75,4 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    private fun configureToolbar() {
-        val toolbar: Toolbar = findViewById<View>(com.example.tabatatimer.R.id.toolbar) as Toolbar
-        setSupportActionBar(toolbar)
-        val actionbar: ActionBar? = supportActionBar
-        actionbar!!.setDisplayHomeAsUpEnabled(true)
-    }
 }

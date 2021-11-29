@@ -24,7 +24,7 @@
         android:id="@+id/timerActivity"
         android:name="com.example.timer.TimerActivity"
         android:label="Timer"
-        tools:layout="@layout/fragment_timer">
+        tools:layout="@layout/activity_timer">
         <argument
             android:name="WorkoutList"
             app:argType="com.example.tabatatimer.data.WorkoutListData" />
