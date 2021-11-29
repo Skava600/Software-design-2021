@@ -183,7 +183,7 @@ class Calculator {
 
     fun onParenthesis(prths: String)
     {
-        if (((lastNumeric) && prths == "(") )
+        if (((lastNumeric || lastConst) && prths == "(") )
             onOperator(Operations.MULTIPLY.symbol)
 
         if (!lastNumeric  && !lastConst && prths == ")")
