@@ -141,7 +141,9 @@ class TimerActivity : AppCompatActivity() {
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter)
 
         // Queue the first interval to be displayed
+        workoutName.text = args.workoutList.List[0].workout.name
         forwardBackward(WorkoutActions.PAUSE, this)
+
     }
 
 

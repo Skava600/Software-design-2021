@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.tabatatimer.databinding.FragmentIntervalDialogBinding
-import androidx.lifecycle.ViewModelProviders
 import com.example.tabatatimer.data.Interval
 import com.example.tabatatimer.data.Workout
 import com.example.database.AppDatabase
@@ -66,7 +66,7 @@ class IntervalDialogFragment(private val fragment: Fragment) : DialogFragment() 
     }
 
     private fun setupDataBinding() {
-        binding.intervalTypeGroup.setOnCheckedChangeListener { group, checkedId ->
+        binding.intervalTypeGroup.setOnCheckedChangeListener { _, checkedId ->
             if (checkedId == R.id.prepareRadioButton)
             {
                 intervalValue = Interval.IntervalType.Prepare.value
@@ -103,8 +103,8 @@ class IntervalDialogFragment(private val fragment: Fragment) : DialogFragment() 
 
         val appDatabase = AppDatabase.getInstance(context)
 
-        val intervalViewModel = ViewModelProviders.of(this).get(IntervalViewModel::class.java)
-        val workoutViewModel = ViewModelProviders.of(this).get(WorkoutViewModel::class.java)
+        val intervalViewModel = ViewModelProvider(this)[IntervalViewModel::class.java]
+        val workoutViewModel = ViewModelProvider(this)[WorkoutViewModel::class.java]
 
         intervalViewModel.insert(interval)
 

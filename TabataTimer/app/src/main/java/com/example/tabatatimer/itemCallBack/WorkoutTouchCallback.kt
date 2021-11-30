@@ -1,7 +1,7 @@
 package com.example.tabatatimer.itemCallBack
 
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tabatatimer.adapter.WorkoutAdapter
@@ -13,7 +13,7 @@ import com.google.android.material.snackbar.Snackbar
 class WorkoutTouchCallback(private var adapter: WorkoutAdapter,
                            private var fragment: Fragment
 ) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-    private var viewModel: WorkoutViewModel = ViewModelProviders.of(fragment).get(WorkoutViewModel::class.java)
+    private var viewModel: WorkoutViewModel = ViewModelProvider(fragment)[WorkoutViewModel::class.java]
 
 
     override fun getSwipeDirs (recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {

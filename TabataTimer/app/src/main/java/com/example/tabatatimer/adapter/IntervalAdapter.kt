@@ -9,13 +9,8 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.widget.addTextChangedListener
-import androidx.core.widget.doAfterTextChanged
-import androidx.lifecycle.ViewModelProviders
 import com.example.tabatatimer.data.Interval
 import com.example.tabatatimer.R
-import com.example.tabatatimer.data.WorkoutWithIntervals
-import com.example.tabatatimer.viewmodels.WorkoutViewModel
 import kotlinx.android.synthetic.main.interval_list_item.view.*
 
 class IntervalAdapter(
@@ -73,16 +68,16 @@ class IntervalAdapter(
             when (interval.time)
             {
                 null -> {
-                    repsButton.setBackground(ResourcesCompat.getDrawable(holder.view.resources, R.drawable.ic_reps_24, null))
+                    repsButton.background = ResourcesCompat.getDrawable(holder.view.resources, R.drawable.ic_reps_24, null)
                     repsButton.isChecked = true
                 }
                 else -> {
-                    repsButton.setBackground(ResourcesCompat.getDrawable(holder.view.resources, R.drawable.ic_stopwatch_24, null))
+                    repsButton.background = ResourcesCompat.getDrawable(holder.view.resources, R.drawable.ic_stopwatch_24, null)
                     repsButton.isChecked = false
                 }
             }
 
-            intervalName.setOnFocusChangeListener { view, hasFocus ->
+            intervalName.setOnFocusChangeListener { _, hasFocus ->
                 if (!hasFocus)
                 {
                     interval.name = intervalName.text.toString()
@@ -132,15 +127,15 @@ class IntervalAdapter(
 
         if (intervals!![position].type == Interval.IntervalType.Work.value)
         {
-            card.setCardBackgroundColor(holder.itemView.getResources().getColor(R.color.colorAccentRed))
+            card.setCardBackgroundColor(holder.itemView.resources.getColor(R.color.colorAccentRed))
         }
         else if (intervals!![position].type == Interval.IntervalType.Prepare.value)
         {
-            card.setCardBackgroundColor(holder.itemView.getResources().getColor(R.color.celadonGreen))
+            card.setCardBackgroundColor(holder.itemView.resources.getColor(R.color.celadonGreen))
         }
         else
         {
-            card.setCardBackgroundColor(holder.itemView.getResources().getColor(R.color.colorAccentBlue))
+            card.setCardBackgroundColor(holder.itemView.resources.getColor(R.color.colorAccentBlue))
         }
     }
 

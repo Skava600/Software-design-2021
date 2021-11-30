@@ -17,8 +17,48 @@
             android:id="@+id/action_landingFragment_to_intervalListFragment"
             app:destination="@id/intervalListFragment"
             app:popUpTo="@+id/landingFragment" />
+        <action
+            android:id="@+id/action_landingFragment_to_sequenceListFragment"
+            app:destination="@id/sequenceListFragment" />
 
     </fragment>
+
+    <fragment
+        android:id="@+id/intervalListFragment"
+        android:name="com.example.tabatatimer.fragment.IntervalListFragment"
+        tools:layout="@layout/fragment_interval_list">
+
+        <action
+            android:id="@+id/action_intervalListFragment_to_timerActivity"
+            app:destination="@id/timerActivity" />
+
+        <argument
+            android:name="workout"
+            app:argType="com.example.tabatatimer.data.Workout" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/sequenceListFragment"
+        android:name="com.example.tabatatimer.fragment.SequenceListFragment"
+        tools:layout="@layout/fragment_sequence_list">
+        <action
+
+            android:id="@+id/action_sequenceListFragment_to_timerActivity"
+            app:destination="@id/timerActivity" />
+
+        <argument
+            android:name="sequence"
+            app:argType="com.example.tabatatimer.data.SequenceOfWorkouts" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.tabatatimer.fragment.SettingsFragment"
+        android:label="@string/settings_fragment_title" />
+    <action
+        android:id="@+id/action_to_preferenceFragment"
+        app:destination="@id/settingsFragment" />
 
     <activity
         android:id="@+id/timerActivity"
@@ -29,28 +69,5 @@
             android:name="WorkoutList"
             app:argType="com.example.tabatatimer.data.WorkoutListData" />
     </activity>
-
-    <fragment
-        android:id="@+id/intervalListFragment"
-        android:name="com.example.tabatatimer.fragment.IntervalListFragment"
-        tools:layout="@layout/fragment_interval_list">
-
-        <action
-
-            android:id="@+id/action_listFragment_to_timerActivity"
-            app:destination="@id/timerActivity" />
-
-        <argument
-            android:name="workout"
-            app:argType="com.example.tabatatimer.data.Workout" />
-
-    </fragment>
-    <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.example.tabatatimer.fragment.SettingsFragment"
-        android:label="@string/settings_fragment_title" />
-    <action
-        android:id="@+id/action_to_preferenceFragment"
-        app:destination="@id/settingsFragment" />
 
 </navigation>

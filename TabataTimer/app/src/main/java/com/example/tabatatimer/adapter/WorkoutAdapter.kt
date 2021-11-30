@@ -2,14 +2,11 @@ package com.example.tabatatimer.adapter
 
 import android.view.*
 import android.widget.*
-import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tabatatimer.data.*
-import com.example.database.AppDatabase
-import com.example.database.IntervalRepository
 import com.example.tabatatimer.R
 import com.example.tabatatimer.fragment.LandingFragment
 import com.example.tabatatimer.fragment.LandingFragmentDirections
@@ -31,10 +28,10 @@ class WorkoutAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
 
-    constructor(fragment: Fragment, onItemClickListener: OnItemClickListener) : this() {
+    constructor(fragment: Fragment, onItemClickListener: OnItemClickListener?) : this() {
         this.fragment = fragment
         this.onItemClickListener = onItemClickListener
-        this.viewModel = ViewModelProviders.of(fragment).get(WorkoutViewModel::class.java)
+        this.viewModel = ViewModelProvider(fragment)[WorkoutViewModel::class.java]
 
     }
 
@@ -64,8 +61,7 @@ class WorkoutAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             val popUpMenuButton = workoutView.popUpMenuButton
 
             popUpMenuButton.setOnClickListener {
-                val landFrag = fragment as LandingFragment
-                if (!landFrag.isInitSequence!!) {
+                if (!(fragment as LandingFragment).isInitSequence!!) {
                     val popup = PopupMenu(workoutView.context, popUpMenuButton)
                     val inflater: MenuInflater = popup.menuInflater
                     inflater.inflate(R.menu.actions_menu, popup.menu)
@@ -80,9 +76,8 @@ class WorkoutAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         private fun onWorkoutMenuClickListener(it: MenuItem, workout: Workout) : Boolean
         {
-            val viewModel = ViewModelProviders.of(fragment).get(WorkoutViewModel::class.java)
-            val i = it.getItemId()
-            when (i) {
+            val viewModel = ViewModelProvider(fragment)[WorkoutViewModel::class.java]
+            when (it.itemId) {
                 R.id.menuDelete -> {
                     viewModel.delete(workout)
                     return true
@@ -119,7 +114,7 @@ class WorkoutAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val viewModel : WorkoutViewModel
         init {
             sequenceView.setOnClickListener(this);
-            viewModel = ViewModelProviders.of(fragment).get(WorkoutViewModel::class.java)
+            viewModel = ViewModelProvider(fragment)[WorkoutViewModel::class.java]
         }
 
         fun bind(position: Int, sequence: SequenceWithWorkouts) {
@@ -147,7 +142,7 @@ class WorkoutAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 if (i < 5)
                 {
                     sequenceContent.append("\n" + sequence.workouts[i].name +
-                            "\t" + Interval.getIntervalDuration(sequence.workouts[i].length))
+                            "\t\t" + Interval.getIntervalDuration(sequence.workouts[i].length))
                 }
 
                 time += sequence.workouts[i].length
@@ -178,14 +173,16 @@ class WorkoutAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
         private fun onSequenceMenuClickListener(it:MenuItem, sequenceOfWorkouts: SequenceOfWorkouts): Boolean{
-            val i = it.getItemId()
-            when (i) {
+            when (it.itemId) {
                 R.id.menuDelete -> {
                     viewModel.deleteSequence(sequenceOfWorkouts)
                     return true
                 }
                 R.id.menuEdit -> {
-
+                    findNavController(fragment).navigate(
+                        LandingFragmentDirections.actionLandingFragmentToSequenceListFragment(
+                            sequenceOfWorkouts
+                        ))
                     return true
                 }
                 R.id.menuPreview -> {

@@ -76,4 +76,6 @@
 
 
     <string name="sequence_title">Последовательность:</string>
+    <string name="start_workout">Начать тренировку</string>
+    <string name="interval_name_title">Названия интервала</string>
 </resources>

@@ -8,7 +8,7 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -56,7 +56,7 @@ class LandingFragment : Fragment(), AdapterView.OnItemClickListener {
             dialog.show(requireActivity().supportFragmentManager, "AddWorkoutFragment")
         }
 
-        viewModel = ViewModelProviders.of(this).get(WorkoutViewModel::class.java)
+        viewModel = ViewModelProvider(this)[WorkoutViewModel::class.java]
 
         val appDatabase = AppDatabase.getInstance(context)
         workoutRepository = WorkoutRepository(appDatabase.workoutDao())
@@ -181,21 +181,24 @@ class LandingFragment : Fragment(), AdapterView.OnItemClickListener {
     private fun insertSequence()
     {
         val addSequences: (Long) -> Unit = {
+            var indexBehind = 0
             for (position in workoutsToSequence!!)
             {
                 val data = recyclerAdapter!!.getData()[position]
                 if (data.workout != null) {
-                    viewModel.insertSequenceCrossRef(SequenceWorkoutCrossRef(it.toInt(), data.workout!!.workoutId!!))
+                    viewModel.insertSequenceCrossRef(SequenceWorkoutCrossRef(it.toInt(), data.workout!!.workoutId!!, indexBehind))
+                    indexBehind++
                     recyclerLayout!!.findViewByPosition(position)!!
                         .findViewById<CardView>(R.id.workout_cardview)
                         .setCardBackgroundColor(recyclerAdapter!!.getData()[position].workout!!.color)
+
                 }
                 else
                 {
                     for (workout in data.sequence!!.workouts)
                     {
-                        viewModel.insertSequenceCrossRef(SequenceWorkoutCrossRef(it.toInt(), workout.workoutId!!))
-
+                        viewModel.insertSequenceCrossRef(SequenceWorkoutCrossRef(it.toInt(), workout.workoutId!!, indexBehind))
+                        indexBehind++
                     }
                     recyclerLayout!!.findViewByPosition(position)!!
                         .findViewById<CardView>(R.id.sequence_cardview)

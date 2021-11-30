@@ -1,12 +1,9 @@
 package com.example.database
 
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.tabatatimer.data.SequenceWithWorkouts
 import com.example.tabatatimer.data.Workout
 import com.example.tabatatimer.data.WorkoutWithIntervals
-import com.example.tabatatimer.viewmodels.IntervalViewModel
 
 @Dao
 interface WorkoutDao {
@@ -16,6 +13,9 @@ interface WorkoutDao {
 
     @Query("SELECT * FROM workout")
     fun getAll(): LiveData<List<Workout>>
+
+    @Query("Select * FROM workout WHERE workoutId=:id")
+    fun getById(id: Int): LiveData<Workout>
 
     @Update
     suspend fun update(workout: Workout)

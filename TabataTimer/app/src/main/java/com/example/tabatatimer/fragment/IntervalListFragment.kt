@@ -3,11 +3,9 @@ package com.example.tabatatimer.fragment
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.Navigation
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -27,7 +25,7 @@ import com.example.tabatatimer.viewmodels.WorkoutViewModel
 import kotlinx.android.synthetic.main.fragment_interval_list.view.*
 
 
-class IntervalListFragment() : Fragment(), IntervalAdapter.OnIntervalChangedListener {
+class IntervalListFragment : Fragment(), IntervalAdapter.OnIntervalChangedListener {
 
     private val args: IntervalListFragmentArgs by navArgs()
     private val viewModel: IntervalViewModel by activityViewModels()
@@ -91,7 +89,7 @@ class IntervalListFragment() : Fragment(), IntervalAdapter.OnIntervalChangedList
 
         rootView.start_workout.setOnClickListener {
             if(recyclerView.adapter!!.itemCount > 0) {
-                findNavController().navigate(IntervalListFragmentDirections.actionListFragmentToTimerActivity(
+                findNavController().navigate(IntervalListFragmentDirections.actionIntervalListFragmentToTimerActivity(
                     WorkoutListData(listOf(
                         WorkoutWithIntervals(args.workout, intervalAdapter.getIntervals()))
                     )))
@@ -113,7 +111,7 @@ class IntervalListFragment() : Fragment(), IntervalAdapter.OnIntervalChangedList
         args.workout.length += newTime
         interval.time = newTime
         viewModel.update(interval)
-        val workoutViewModel = ViewModelProviders.of(this).get(WorkoutViewModel::class.java)
+        val workoutViewModel = ViewModelProvider(this)[WorkoutViewModel::class.java]
         workoutViewModel.update(args.workout)
         rootView.intervalViewTotalTime.text = Interval.getIntervalDuration(args.workout.length)
         if (newTime == 0)
@@ -150,7 +148,7 @@ class IntervalListFragment() : Fragment(), IntervalAdapter.OnIntervalChangedList
             }
         }
 
-        val workoutViewModel = ViewModelProviders.of(this).get(WorkoutViewModel::class.java)
+        val workoutViewModel = ViewModelProvider(this)[WorkoutViewModel::class.java]
         workoutViewModel.update(args.workout)
         rootView.intervalViewTotalTime.text = Interval.getIntervalDuration(args.workout.length)
     }

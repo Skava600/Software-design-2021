@@ -1,7 +1,7 @@
 package com.example.tabatatimer.itemCallBack
 
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ItemTouchHelper.*
 import androidx.recyclerview.widget.RecyclerView
@@ -17,8 +17,8 @@ class IntervalTouchCallback(private var cardAdapter: IntervalAdapter,
                             private var fragment: Fragment,
                             private var workout: Workout
     ) : ItemTouchHelper.SimpleCallback(UP or DOWN, LEFT) {
-        private var viewModel = ViewModelProviders.of(fragment).get(IntervalViewModel::class.java)
-        private var workoutViewModel = ViewModelProviders.of(fragment).get(WorkoutViewModel::class.java)
+        private var viewModel = ViewModelProvider(fragment)[IntervalViewModel::class.java]
+        private var workoutViewModel = ViewModelProvider(fragment)[WorkoutViewModel::class.java]
         private var wasSwiped = false
 
         override fun onMove(recyclerView: RecyclerView,

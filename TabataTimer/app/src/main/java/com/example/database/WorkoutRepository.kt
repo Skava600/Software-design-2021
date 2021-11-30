@@ -1,13 +1,14 @@
 package com.example.database
 
 import androidx.lifecycle.LiveData
-import com.example.tabatatimer.data.SequenceWithWorkouts
 import com.example.tabatatimer.data.Workout
 import com.example.tabatatimer.data.WorkoutWithIntervals
 
 class WorkoutRepository(private val workoutDao: WorkoutDao) {
 
     fun getAllWorkouts(): LiveData<List<Workout>> = workoutDao.getAll()
+
+    fun getWorkoutById(id: Int): LiveData<Workout> = workoutDao.getById(id)
 
     fun getWorkoutsWithInt(): LiveData<List<WorkoutWithIntervals>> = workoutDao.getWorkoutsWithIntervals()
 

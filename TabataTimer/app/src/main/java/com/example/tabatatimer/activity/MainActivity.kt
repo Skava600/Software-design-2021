@@ -16,10 +16,6 @@ import androidx.navigation.ui.NavigationUI
 import androidx.preference.PreferenceManager
 import com.example.tabatatimer.NavigationDirections
 import java.util.*
-import android.R
-import android.view.View
-import androidx.appcompat.app.ActionBar
-import androidx.appcompat.widget.Toolbar
 
 
 class MainActivity : AppCompatActivity() {

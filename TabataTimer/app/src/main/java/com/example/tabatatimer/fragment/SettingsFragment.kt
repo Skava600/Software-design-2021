@@ -3,7 +3,7 @@ package com.example.tabatatimer.fragment
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
@@ -22,7 +22,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
 
         val button: Preference? = findPreference(getString(R.string.delete_all))
         button?.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            val viewModel = ViewModelProviders.of(this).get(WorkoutViewModel::class.java)
+            val viewModel = ViewModelProvider(this)[WorkoutViewModel::class.java]
 
             val dialogBuilder = context?.let { it1 -> AlertDialog.Builder(it1) }
             dialogBuilder?.setMessage(getString(R.string.delete_confirmation))

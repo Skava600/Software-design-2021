@@ -2,14 +2,13 @@ package com.example.tabatatimer.fragment
 
 import android.app.AlertDialog
 import android.app.Dialog
-import android.graphics.Color.toArgb
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.example.tabatatimer.data.Workout
 import com.example.tabatatimer.R
 import com.example.tabatatimer.databinding.AddWorkoutBinding
@@ -58,7 +57,7 @@ class WorkoutDialogFragment() : DialogFragment() {
     }
 
     private fun submitWorkout() {
-        val viewModel = ViewModelProviders.of(this).get(WorkoutViewModel::class.java)
+        val viewModel = ViewModelProvider(this)[WorkoutViewModel::class.java]
         val workoutName = binding.workoutNameEditText.text.toString()
 
         viewModel.insert(Workout(null, workoutName, 0, resources.getColor(R.color.color1)))
