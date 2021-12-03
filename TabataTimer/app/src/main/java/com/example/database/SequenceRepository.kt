@@ -30,5 +30,5 @@ class SequenceRepository(private val sequenceWorkoutDao: SequenceWorkoutDao) {
 
     fun getAllSequences(): LiveData<List<SequenceWithWorkouts>> = sequenceWorkoutDao.getSequencesWithWorkouts()
 
-    fun getSequenceRefsById(sequenceId: Int): LiveData<List<SequenceWorkoutCrossRef>> = sequenceWorkoutDao.getAllRefsById(sequenceId)
+    fun getLiveSequenceRefsById(sequenceId: Int): LiveData<List<SequenceWorkoutCrossRef>> = sequenceWorkoutDao.getAllLiveRefsBySequenceId(sequenceId)
 }

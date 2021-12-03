@@ -1,5 +1,6 @@
 package com.example.timer
 
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -35,11 +36,9 @@ class TimerActivity : AppCompatActivity() {
     private val NOTIFICATION_ID = 0
     private lateinit var rewindIntent: Intent
     private lateinit var pauseIntent: Intent
-    private lateinit var playIntent: Intent
     private lateinit var fastForwardIntent: Intent
     private lateinit var rewindPendingIntent: PendingIntent
     private lateinit var pausePendingIntent: PendingIntent
-    private lateinit var playPendingIntent: PendingIntent
     private lateinit var fastForwardPendingIntent: PendingIntent
 
     enum class WorkoutActions {
@@ -98,26 +97,19 @@ class TimerActivity : AppCompatActivity() {
         }
 
         // Create intents for each button in the notification
-        rewindIntent = Intent(this, NotificationButtonReceiver::class.java)
-        pauseIntent = Intent(this, NotificationButtonReceiver::class.java)
-        playIntent = Intent(this, NotificationButtonReceiver::class.java)
-        fastForwardIntent = Intent(this, NotificationButtonReceiver::class.java)
-
-        // Assign an action to each button
-        fastForwardIntent.action = getString(R.string.notification_fast_forward_action)
-        rewindIntent.action = getString(R.string.notification_rewind_action)
-        playIntent.action = "PLAY"
-        pauseIntent.action = getString(R.string.notification_pause_action)
-
-        // Create a pending intent for each button, used for receiving a button press
-        rewindPendingIntent = PendingIntent.getBroadcast(this, 0, rewindIntent, 0)
-        pausePendingIntent = PendingIntent.getBroadcast(this, 1, pauseIntent, 0)
-        playPendingIntent = PendingIntent.getBroadcast(this, 2, playIntent, 0)
-        fastForwardPendingIntent = PendingIntent.getBroadcast(this, 3, fastForwardIntent, 0)
+        rewindIntent = Intent(this, NotificationButtonReceiver::class.java).apply {
+            action = getString(R.string.notification_rewind_action)
+        }
+        pauseIntent = Intent(this, NotificationButtonReceiver::class.java).apply {
+            action = getString(R.string.notification_pause_action)
+        }
+        fastForwardIntent = Intent(this, NotificationButtonReceiver::class.java).apply{
+            action = getString(R.string.notification_fast_forward_action)
+        }
 
         // Create the notification manager and builder.
         notificationBuilder = NotificationCompat.Builder(this, getString(R.string.notification_channel))
-        notificationManager = this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager = this.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         createNotificationChannel()
         updateNotification(this)
 
@@ -127,18 +119,19 @@ class TimerActivity : AppCompatActivity() {
             setContentTitle(args.workoutList.List.get(0).intervals.get(0).name)
             setContentText(args.workoutList.List.get(0).intervals.get(0).getIntervalDuration())
         }
-
         // Notify the notification to change
         notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build())
-
         // Create a receiver for updating the UI based on notification button presses
         val receiver = ActionReceiver(this)
         val filter = IntentFilter()
         filter.addAction("REWIND")
         filter.addAction("PAUSE")
-        filter.addAction("PLAY")
         filter.addAction("FAST FORWARD")
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter)
+
+
+
+
 
         // Queue the first interval to be displayed
         workoutName.text = args.workoutList.List[0].workout.name
@@ -164,12 +157,13 @@ class TimerActivity : AppCompatActivity() {
             mediaPlayer?.start()
         }
 
-        if (intervalListIterator != args.workoutList.List[workoutListIterator].intervals.size - 1
-            && workoutListIterator != args.workoutList.List.size - 1) {
+        if (intervalListIterator == args.workoutList.List[workoutListIterator].intervals.size - 1
+            && workoutListIterator == args.workoutList.List.size - 1) {
+            endOfList = true
+        } else {
             forwardBackward(WorkoutActions.FAST_FORWARD, this)
             endOfList = false
-        } else {
-            endOfList = true
+
         }
     }
 
@@ -208,20 +202,10 @@ class TimerActivity : AppCompatActivity() {
             intervalCountdownTimer?.cancel()
         }
 
-        /**
-         * Creates a timer and calls the on tick function
-         * of the timer.
-         */
-
         fun play(activity: TimerActivity) {
 
             // Creates a countdown timer object
             intervalCountdownTimer = object : CountDownTimer(totaltime, countdown) {
-
-                /**
-                 * Overrides the onTick function of the countdown timer
-                 * @param millis the total time of the countdown timer
-                 */
 
                 override fun onTick(millis: Long) {
                     totaltime = millis
@@ -233,10 +217,6 @@ class TimerActivity : AppCompatActivity() {
                     updateNotification(activity)
                 }
 
-                /**
-                 * Overrides the onFinish function to call the resetTimer function
-                 */
-
                 override fun onFinish() {
                     activity.resetTimer()
                 }
@@ -246,17 +226,21 @@ class TimerActivity : AppCompatActivity() {
         }
 
         fun updateNotification(activity: TimerActivity) {
+            // Create a pending intent for each button, used for receiving a button press
+            val rewindPendingIntent = PendingIntent.getBroadcast(activity, 0, activity.rewindIntent, 0)
+            val pausePendingIntent = PendingIntent.getBroadcast(activity, 1, activity.pauseIntent, 0)
+            val fastForwardPendingIntent = PendingIntent.getBroadcast(activity, 2, activity.fastForwardIntent, 0)
             notificationBuilder.apply {
                 setSmallIcon(R.drawable.ic_stopwatch_24)
                 setProgress(totaltime.toInt(), activity.workoutProgressBar.progress, false)
                 setContentTitle(activity.workoutName.text)
                 setContentText(activity.timerText.text)
-                addAction(R.drawable.ic_fast_rewind_24, "Rewind", activity.rewindPendingIntent)
-                notificationBuilder.addAction(R.drawable.ic_pause_24, "Play / Pause", activity.pausePendingIntent)
-                addAction(R.drawable.ic_fast_forward_24, "Fast Forward", activity.fastForwardPendingIntent)
+
+//                addAction(R.drawable.ic_fast_rewind_24, "Rewind", rewindPendingIntent)
+//                addAction(R.drawable.ic_pause_24, "Play / Pause", pausePendingIntent)
+//                addAction(R.drawable.ic_fast_forward_24, "Fast Forward", fastForwardPendingIntent)
                 setShowWhen(false)
             }
-
             with(NotificationManagerCompat.from(activity)) {
                 notify(activity.NOTIFICATION_ID, notificationBuilder.build())
             }
@@ -311,11 +295,11 @@ class TimerActivity : AppCompatActivity() {
                 activity.timerText.text = "Reps: " + activity.args.workoutList.List[workoutListIterator].intervals[intervalListIterator].reps.toString()
                 totaltime = 0
             } else {
-                var intervalTimeInSeconds: Int?
+                val intervalTimeInSeconds: Int?
                 intervalTimeInSeconds = activity.args.workoutList.List[workoutListIterator].intervals[intervalListIterator].time
 
-                var minutes = intervalTimeInSeconds!! / 60
-                var seconds = intervalTimeInSeconds % 60
+                val minutes = intervalTimeInSeconds!! / 60
+                val seconds = intervalTimeInSeconds % 60
 
 
                 val covertTimeText = String.format("%02d:%02d", minutes, seconds)
@@ -331,7 +315,7 @@ class TimerActivity : AppCompatActivity() {
             // Checks if timer is null
 
 
-            var intervalColorText: Int
+            val intervalColorText: Int
 
             // Checks if no color is selected
             intervalColorText = when (activity.args.workoutList.List[workoutListIterator].intervals[intervalListIterator].type) {

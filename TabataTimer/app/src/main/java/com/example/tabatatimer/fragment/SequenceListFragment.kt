@@ -7,19 +7,24 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.database.AppDatabase
 import com.example.database.SequenceRepository
+import com.example.database.WorkoutRepository
 import com.example.tabatatimer.R
 import com.example.tabatatimer.adapter.SequenceCrossRefAdapter
+import com.example.tabatatimer.data.SequenceWorkoutCrossRef
+import com.example.tabatatimer.data.WorkoutListData
+import com.example.tabatatimer.data.WorkoutWithIntervals
 import com.example.tabatatimer.itemCallBack.WorkoutRefsTouchCallback
 import com.example.tabatatimer.viewmodels.WorkoutViewModel
 import kotlinx.android.synthetic.main.fragment_sequence_list.view.*
 
-class SequenceListFragment: Fragment(), AdapterView.OnItemClickListener {
+class SequenceListFragment: Fragment() {
     private val args: SequenceListFragmentArgs by navArgs()
     private val viewModel: WorkoutViewModel by activityViewModels()
     private lateinit var rootView: View
@@ -32,33 +37,33 @@ class SequenceListFragment: Fragment(), AdapterView.OnItemClickListener {
         val recyclerView = initRecyclerView(rootView.workoutList)
         setHasOptionsMenu(true)
 
-        rootView.start_sequence.setOnClickListener {
-//            viewModel.getAllSequences().observe(viewLifecycleOwner,
-//                {
-//                    sequences -> viewModel.getAllWorkInt().observe(viewLifecycleOwner,{
-//                        workouts -> workouts.all{workoutWithIntervals -> workoutWithIntervals.workout.workoutId == args.sequence.}
-//                    })
-//                })
-            val appDatabase = AppDatabase.getInstance(context)
-
-        }
-
 
         return rootView
     }
 
     private fun initRecyclerView(workoutList: RecyclerView): RecyclerView {
         val recyclerLayout = LinearLayoutManager(requireActivity().applicationContext)
-        val workoutRefAdapter =  SequenceCrossRefAdapter(this, this)
+        val workoutRefAdapter =  SequenceCrossRefAdapter(this)
 
         val appDatabase = AppDatabase.getInstance(context)
         sequenceRepository = SequenceRepository((appDatabase.sequenceDao()))
 
-        sequenceRepository.getSequenceRefsById(args.sequence.sequenceId!!).observe(viewLifecycleOwner,
+        sequenceRepository.getLiveSequenceRefsById(args.sequence.sequenceId!!).observe(viewLifecycleOwner,
             {
                     sequenceRefs ->
-                workoutRefAdapter.setData(sequenceRefs.toMutableList())
+                workoutRefAdapter.setSequenceRefs(sequenceRefs.toMutableList())
             })
+
+
+
+        rootView.start_sequence.setOnClickListener {
+
+
+            findNavController().navigate(
+                SequenceListFragmentDirections.actionSequenceListFragmentToTimerActivity(
+                    WorkoutListData(workoutRefAdapter.getWorkoutsWithIntervals())
+                ))
+        }
 
         workoutList.apply {
             setHasFixedSize(true)
@@ -71,9 +76,5 @@ class SequenceListFragment: Fragment(), AdapterView.OnItemClickListener {
         ).attachToRecyclerView(workoutList)
 
         return workoutList
-    }
-
-    override fun onItemClick(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-
     }
 }

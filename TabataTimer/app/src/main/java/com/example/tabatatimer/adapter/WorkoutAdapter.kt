@@ -141,11 +141,11 @@ class WorkoutAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             {
                 if (i < 5)
                 {
-                    sequenceContent.append("\n" + sequence.workouts[i].name +
-                            "\t\t" + Interval.getIntervalDuration(sequence.workouts[i].length))
+                    sequenceContent.append("\n" + sequence.workouts[i].workout.name +
+                            "\t\t" + Interval.getIntervalDuration(sequence.workouts[i].workout.length))
                 }
 
-                time += sequence.workouts[i].length
+                time += sequence.workouts[i].workout.length
                 i++
             }
 

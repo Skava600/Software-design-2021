@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 class WorkoutViewModel(app: Application): AndroidViewModel(app) {
     private var allWorkouts: LiveData<List<Workout>>
     private var allSequences: LiveData<List<SequenceWithWorkouts>>
-    private var allWorkInt: LiveData<List<WorkoutWithIntervals>>
+    private var allWorkWithInt: LiveData<List<WorkoutWithIntervals>>
     private var workoutRepository: WorkoutRepository
     private var sequenceRepository: SequenceRepository
 
@@ -29,7 +29,7 @@ class WorkoutViewModel(app: Application): AndroidViewModel(app) {
 
         allWorkouts = workoutRepository.getAllWorkouts()
 
-        allWorkInt = workoutRepository.getWorkoutsWithInt()
+        allWorkWithInt = workoutRepository.getWorkoutsWithInt()
 
         allSequences = sequenceRepository.getAllSequences()
     }
@@ -93,7 +93,7 @@ class WorkoutViewModel(app: Application): AndroidViewModel(app) {
     fun getAllWorkouts(): LiveData<List<Workout>> = this.allWorkouts
 
 
-    //fun getAllWorkInt(): LiveData<List<WorkoutWithIntervals>> = this.allWorkInt
+    fun getAllWorkInt(): LiveData<List<WorkoutWithIntervals>> = this.allWorkWithInt
 
     fun getAllSequences(): LiveData<List<SequenceWithWorkouts>> = this.allSequences
 

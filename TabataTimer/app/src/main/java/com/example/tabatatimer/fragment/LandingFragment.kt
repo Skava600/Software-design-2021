@@ -21,6 +21,7 @@ import com.example.tabatatimer.adapter.WorkoutAdapter
 import com.example.tabatatimer.itemCallBack.WorkoutTouchCallback
 import com.example.tabatatimer.viewmodels.WorkoutViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_landing.view.*
 
 
@@ -69,6 +70,9 @@ class LandingFragment : Fragment(), AdapterView.OnItemClickListener {
         addSequence.setOnClickListener {
             if (recyclerAdapter!!.getData().count() >= 2)
                 showCreatingSequenceMenu()
+            else{
+                Snackbar.make(requireView(), R.string.snack_few_workouts, Snackbar.LENGTH_LONG).show()
+            }
         }
 
         ItemTouchHelper(
@@ -107,6 +111,7 @@ class LandingFragment : Fragment(), AdapterView.OnItemClickListener {
     override fun onOptionsItemSelected(item: MenuItem) : Boolean{
         if ((workoutsToSequence!!.count() < 2) && item.itemId == R.id.action_create_sequence)
         {
+            Snackbar.make(requireView(), R.string.snack_choose_more_workouts, Snackbar.LENGTH_LONG).show()
             return false
         }
 
@@ -197,7 +202,7 @@ class LandingFragment : Fragment(), AdapterView.OnItemClickListener {
                 {
                     for (workout in data.sequence!!.workouts)
                     {
-                        viewModel.insertSequenceCrossRef(SequenceWorkoutCrossRef(it.toInt(), workout.workoutId!!, indexBehind))
+                        viewModel.insertSequenceCrossRef(SequenceWorkoutCrossRef(it.toInt(), workout.workout.workoutId!!, indexBehind))
                         indexBehind++
                     }
                     recyclerLayout!!.findViewByPosition(position)!!

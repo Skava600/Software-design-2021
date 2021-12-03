@@ -15,7 +15,7 @@ interface WorkoutDao {
     fun getAll(): LiveData<List<Workout>>
 
     @Query("Select * FROM workout WHERE workoutId=:id")
-    fun getById(id: Int): LiveData<Workout>
+    fun getById(id: Int): LiveData<WorkoutWithIntervals>
 
     @Update
     suspend fun update(workout: Workout)
@@ -59,6 +59,12 @@ interface WorkoutDao {
     @Transaction
     @Query("SELECT * FROM Workout")
     fun getWorkoutsWithIntervals(): LiveData<List<WorkoutWithIntervals>>
+
+    @Transaction
+    @Query("SELECT * FROM Workout WHERE workoutId=:workoutId")
+    suspend fun getWorkoutWithIntervalsById(workoutId: Int): WorkoutWithIntervals
+
+    @Query("SELECT * FROM SequenceWorkoutCrossRef INNER JOIN WORKOUT ON fk_workout_id=workoutId")
 
     @Transaction
     suspend fun wipeData(){

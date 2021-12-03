@@ -8,7 +8,7 @@ class WorkoutRepository(private val workoutDao: WorkoutDao) {
 
     fun getAllWorkouts(): LiveData<List<Workout>> = workoutDao.getAll()
 
-    fun getWorkoutById(id: Int): LiveData<Workout> = workoutDao.getById(id)
+    fun getWorkoutById(id: Int): LiveData<WorkoutWithIntervals> = workoutDao.getById(id)
 
     fun getWorkoutsWithInt(): LiveData<List<WorkoutWithIntervals>> = workoutDao.getWorkoutsWithIntervals()
 

@@ -1,12 +1,8 @@
 package com.example.tabatatimer.adapter
 
 import android.view.*
-import android.widget.AdapterView
-import android.widget.ImageButton
-import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.database.AppDatabase
 import com.example.database.WorkoutRepository
@@ -14,24 +10,23 @@ import com.example.tabatatimer.R
 import com.example.tabatatimer.data.Interval
 import com.example.tabatatimer.data.SequenceWorkoutCrossRef
 import com.example.tabatatimer.data.Workout
-import com.example.tabatatimer.fragment.LandingFragmentDirections
+import com.example.tabatatimer.data.WorkoutWithIntervals
 import com.example.tabatatimer.viewmodels.WorkoutViewModel
 import kotlinx.android.synthetic.main.workout_cardview.view.*
 
 class SequenceCrossRefAdapter():  RecyclerView.Adapter<SequenceCrossRefAdapter.WorkoutViewHolder>() {
     private var sequenceRefs: MutableList<SequenceWorkoutCrossRef>? = null
+    private var workoutWithIntervals: MutableList<WorkoutWithIntervals>? = arrayListOf()
     private var fragment: Fragment? = null
     private var viewModel: WorkoutViewModel? = null
-    private var onItemClickListener: AdapterView.OnItemClickListener? = null
 
-    constructor(fragment: Fragment, onItemClickListener: AdapterView.OnItemClickListener?) : this() {
+    constructor(fragment: Fragment) : this() {
         this.fragment = fragment
-        this.onItemClickListener = onItemClickListener
         this.viewModel = ViewModelProvider(fragment)[WorkoutViewModel::class.java]
 
     }
 
-    fun setData(sequenceRefs: MutableList<SequenceWorkoutCrossRef>)
+    fun setSequenceRefs(sequenceRefs: MutableList<SequenceWorkoutCrossRef>)
     {
         this.sequenceRefs = sequenceRefs.sortedBy {
             it.workoutIndex
@@ -42,13 +37,9 @@ class SequenceCrossRefAdapter():  RecyclerView.Adapter<SequenceCrossRefAdapter.W
 
     class WorkoutViewHolder(
         private val workoutView: View,
-        private val onItemClickListener: AdapterView.OnItemClickListener,
         private val fragment: Fragment
     ):
-        RecyclerView.ViewHolder(workoutView), View.OnClickListener {
-        init {
-            workoutView.setOnClickListener(this)
-        }
+        RecyclerView.ViewHolder(workoutView){
 
         fun bind(position: Int, workout: Workout) {
             val color = workout.color
@@ -61,51 +52,9 @@ class SequenceCrossRefAdapter():  RecyclerView.Adapter<SequenceCrossRefAdapter.W
 
             workoutName.text = workout.name
             workoutTime.text = Interval.getIntervalDuration(workout.length) + " minutes"
-
-            val popUpMenuButton = workoutView.popUpMenuButton
-
-            popUpMenuButton.setOnClickListener {
-                val popup = PopupMenu(workoutView.context, popUpMenuButton)
-                val inflater: MenuInflater = popup.menuInflater
-                inflater.inflate(R.menu.actions_menu, popup.menu)
-                popup.setOnMenuItemClickListener {
-                    onWorkoutMenuClickListener(it, workout)
-                }
-
-                popup.show()
-            }
+            workoutView.popUpMenuButton.visibility = View.GONE
         }
 
-        private fun onWorkoutMenuClickListener(it: MenuItem, workout: Workout) : Boolean
-        {
-            val viewModel = ViewModelProvider(fragment)[WorkoutViewModel::class.java]
-            when (it.itemId) {
-                R.id.menuDelete -> {
-                    viewModel.delete(workout)
-                    return true
-                }
-                R.id.menuEdit -> {
-                    NavHostFragment.findNavController(fragment).navigate(
-                        LandingFragmentDirections.actionLandingFragmentToIntervalListFragment(
-                            workout
-                        )
-                    )
-                    return true
-                }
-                R.id.menuPreview -> {
-                    //do something
-                    return true
-                }
-                else -> {
-                    return false
-                }
-            }
-        }
-
-        override fun onClick(view:View?) {
-            workoutView.findViewById<ImageButton>(R.id.popUpMenuButton).callOnClick()
-            onItemClickListener.onItemClick(null, view, adapterPosition, view!!.id.toLong())
-        }
 
 
     }
@@ -117,7 +66,7 @@ class SequenceCrossRefAdapter():  RecyclerView.Adapter<SequenceCrossRefAdapter.W
             false
         )
 
-        return WorkoutViewHolder(view, onItemClickListener!!, fragment!!)
+        return WorkoutViewHolder(view, fragment!!)
 
     }
 
@@ -128,7 +77,8 @@ class SequenceCrossRefAdapter():  RecyclerView.Adapter<SequenceCrossRefAdapter.W
         workoutRepository.getWorkoutById(sequenceRefs!![position].workoutId).observe(
             fragment!!.viewLifecycleOwner,
             {
-                holder.bind(position, it)
+                holder.bind(position, it.workout)
+                workoutWithIntervals!!.add(it)
             })
 
     }
@@ -144,6 +94,8 @@ class SequenceCrossRefAdapter():  RecyclerView.Adapter<SequenceCrossRefAdapter.W
     }
 
     fun getSequenceCrossRefs() : List<SequenceWorkoutCrossRef> = this.sequenceRefs!!
+
+    fun getWorkoutsWithIntervals() : List<WorkoutWithIntervals> = this.workoutWithIntervals!!
 
     fun insertItem(at: Int, sequenceWorkoutCrossRef: SequenceWorkoutCrossRef) {
         if (sequenceRefs != null && sequenceRefs!!.isEmpty()) {

@@ -43,13 +43,6 @@
         <item>"1.5"</item>
     </string-array>
 
-    <!-- Workout fragment-->
-    <string-array name="manipulate_workout">
-        <item>Редактировать</item>
-        <item>Предпросмотр</item>
-        <item>Удалить</item>
-
-    </string-array>
 
     <string name="workout_title">Тренировки: </string>
 
@@ -75,7 +68,12 @@
     <string name="preview">Предпросмотр</string>
 
 
-    <string name="sequence_title">Последовательность:</string>
+
     <string name="start_workout">Начать тренировку</string>
     <string name="interval_name_title">Названия интервала</string>
+
+    <!-- Landing fragment-->
+    <string name="snack_choose_more_workouts">Выберите две или более трнерировки</string>
+    <string name="sequence_title">Последовательность:</string>
+    <string name="snack_few_workouts">Создайте как минимум 2 тренировки</string>
 </resources>

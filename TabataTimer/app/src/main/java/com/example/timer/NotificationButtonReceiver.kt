@@ -17,13 +17,9 @@ class NotificationButtonReceiver : BroadcastReceiver() {
     }
 }
 
-class ActionReceiver : BroadcastReceiver {
+class ActionReceiver(activity: TimerActivity) : BroadcastReceiver() {
 
-    private var activity: TimerActivity?
-
-    constructor(activity: TimerActivity) : super() {
-        this.activity = activity
-    }
+    private var activity: TimerActivity? = activity
 
     override fun onReceive(context: Context?, intent: Intent?) {
         val action = intent?.action
@@ -44,8 +40,6 @@ class ActionReceiver : BroadcastReceiver {
                 activity!!.playButton.isChecked = !isChecked
                 activity!!.playButton.setBackgroundResource(R.drawable.ic_pause_24)
             }
-        } else if(action == "PLAY") {
-            println("BIG OLE PLAY")
         }
         else if (action == "FAST FORWARD") {
             TimerActivity.forwardBackward(TimerActivity.WorkoutActions.FAST_FORWARD, activity!!)

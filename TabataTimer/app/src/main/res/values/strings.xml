@@ -47,25 +47,13 @@
         <item>"1.5"</item>
     </string-array>
 
-    <!-- Workout fragment-->
-    <string-array name="manipulate_workout">
-        <item>Edit</item>
-        <item>Preview</item>
-        <item>Delete</item>
-
-    </string-array>
 
     <string name="workout_title">Workouts: </string>
 
     <string name="title_activity_timer">TimerActivity</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label" translatable="false">First Fragment</string>
-    <string name="second_fragment_label" translatable="false">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-
-    <string name="hello_first_fragment" translatable="false">Hello first fragment</string>
-    <string name="hello_second_fragment" translatable="false">Hello second fragment. Arg: %1$s</string>
     <string name="default_timer_text" translatable="false">00:00</string>
     <string name="number_reps">0 of reps</string>
     <string name="end_workout">End Workout</string>
@@ -81,11 +69,15 @@
     <string name="start_workout">Start Workout</string>
     <string name="defalut_timer_text" translatable="false">00:00</string>
     <string name="sequence_title">Sequence:</string>
-    <string name="interval_name_title">Intreval Name</string>
+    <string name="interval_name_title">Interval Name</string>
     <string name="notification_channel" translatable="false">default.channel</string>
 
     <string name="notification_rewind_action" translatable="false">REWIND</string>
     <string name="notification_pause_action" translatable="false">PAUSE</string>
     <string name="notification_fast_forward_action" translatable="false">FAST FORWARD</string>
+    <string name="notification_play_action" translatable="false">PLAY</string>
 
+    <!-- Landing fragment-->
+    <string name="snack_choose_more_workouts">Choose two or more workouts</string>
+    <string name="snack_few_workouts">Create at least 2 workouts</string>
 </resources>

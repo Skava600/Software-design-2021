@@ -12,7 +12,6 @@ interface IntervalDao {
     @Insert
     suspend fun insert(interval: Interval)
 
-
     @Transaction
     @Query("Select * FROM Workout WHERE workoutId = :workoutId")
     fun getWorkoutWithIntervals(workoutId: Int): LiveData<WorkoutWithIntervals>

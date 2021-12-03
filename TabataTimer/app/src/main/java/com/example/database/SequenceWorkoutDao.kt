@@ -9,8 +9,9 @@ import com.example.tabatatimer.data.SequenceWorkoutCrossRef
 @Dao
 interface SequenceWorkoutDao {
 
+
     @Query("SELECT * FROM sequenceworkoutcrossref WHERE fk_sequence_id=:fk_sequence_id")
-    fun getAllRefsById(fk_sequence_id:Int): LiveData<List<SequenceWorkoutCrossRef>>
+    fun getAllLiveRefsBySequenceId(fk_sequence_id:Int): LiveData<List<SequenceWorkoutCrossRef>>
 
     @Insert
     suspend fun insertSequence(sequence : SequenceOfWorkouts) : Long
