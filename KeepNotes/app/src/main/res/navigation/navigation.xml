@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/fragment_note_list">
+
+    <fragment
+        android:id="@+id/fragment_note_list"
+        android:name="com.example.keepnotes.NoteListFragment"
+        tools:layout="@layout/fragment_note_list" >
+        <action
+            android:id="@+id/action_fragment_note_list_to_noteFragment"
+            app:destination="@id/noteFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/noteFragment"
+        android:name="com.example.keepnotes.NoteFragment"
+        tools:layout="@layout/fragment_note" >
+        <argument
+            android:name="index"
+            app:argType="integer" />
+        <argument
+            android:name="isUpdate"
+            app:argType="boolean" />
+    </fragment>
+
+
+</navigation>

@@ -1,55 +1,79 @@
 package com.example.keepnotes
 
 import android.os.Bundle
+import android.view.*
+import android.widget.EditText
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.navArgs
 import com.example.keepnotes.models.Note
 import com.example.keepnotes.viewmodel.NoteViewModel
 import java.util.*
 
-/**
- * A fragment representing a list of Items.
- */
 class NoteFragment : Fragment() {
+
+    private val args:NoteFragmentArgs by navArgs()
+
+    private var title:String = ""
+    private var body: String = ""
+
     private val viewModel : NoteViewModel by activityViewModels()
-    private var columnCount = 2
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_note_list, container, false)
+        // Inflate the layout for this fragment
+        val view = inflater.inflate(R.layout.fragment_note, container, false)
+        setHasOptionsMenu(true)
+        val titleText = view.findViewById<EditText>(R.id.titleEditView)
+        val bodyText = view.findViewById<EditText>(R.id.bodyEditText)
 
-        //viewModel.insert(Note(null, "suka", "pidor\npizda","", Date().time.toString() ))
-
-        val noteAdapter = NoteAdapter()
-        viewModel.getAllNotes().observe(
-            viewLifecycleOwner,
+        titleText.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus)
             {
-                    notes -> noteAdapter.setData(notes)
-            })
-        if (view is RecyclerView) {
-            with(view) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
-                }
-                adapter = noteAdapter
+                title = titleText.text.toString()
             }
         }
+
+        bodyText.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus)
+            {
+                body = bodyText.text.toString()
+            }
+        }
+
+
         return view
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.note_app_bar, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_save -> {
+                val date = Date().toString()
+                if (title.isEmpty()) {
+                    title = date
+
+                }
+
+
+                val note = Note(null, title, body, "", date, args.index)
+
+                viewModel.insert(note)
+
+            }
+
+            R.id.action_image -> {
+
+            }
+
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
 }

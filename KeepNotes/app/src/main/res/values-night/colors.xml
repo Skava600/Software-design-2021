@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/white</color>
-    <color name="colorSecondary">@color/beau_bue</color>
-    <color name="colorBackground">@color/white</color>
-    <color name="fontPrimary">@color/black</color>
+    <color name="colorPrimary">@color/reisin_black</color>
+    <color name="colorSecondary">@color/reisin_black</color>
+    <color name="colorBackground">@color/reisin_black</color>
+    <color name="fontPrimary">@color/white</color>
 
 
-    <color name="white">#FFFFFF</color>
-    <color name="black">#000000</color>
-    <color name="beau_bue">#C1CAD6</color>
+
 </resources>

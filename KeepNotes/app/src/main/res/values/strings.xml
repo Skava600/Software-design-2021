@@ -2,4 +2,14 @@
     <string name="app_name">KeepNotes</string>
     <string name="note_title">Title</string>
     <string name="note_body">Body</string>
+    <string name="title">Title</string>
+    <string name="description">Note</string>
+    <string name="image">image</string>
+    <string name="content_description_image">creating note with image</string>
+
+    <string-array name="priorities">
+        <item>High Priority</item>
+        <item>Medium Priority</item>
+        <item>Low Priority</item>
+    </string-array>
 </resources>

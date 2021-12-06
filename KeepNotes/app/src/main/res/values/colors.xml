@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/white</color>
+    <color name="colorPrimary">@color/straw</color>
+    <color name="colorPrimaryVariant">@color/white</color>
     <color name="colorSecondary">@color/beau_bue</color>
     <color name="colorBackground">@color/white</color>
     <color name="fontPrimary">@color/black</color>
 
+    <color name="colorBorder">@color/light_gray</color>
 
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="beau_bue">#C1CAD6</color>
+    <color name="light_gray">#CFCFCF</color>
+    <color name="straw">#ECDD7B</color>
+    <color name="reisin_black">#1E1E24</color>
+    <color name="duke_blue">#090C9B</color>
 </resources>

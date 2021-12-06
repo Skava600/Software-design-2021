@@ -11,5 +11,6 @@ class Note (
     var title: String,
     var body: String,
     var tagList: String,
-    var dateTime: String
+    var dateTime: String,
+    var index: Int
 ): Serializable
