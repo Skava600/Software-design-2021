@@ -11,6 +11,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.preference.PreferenceManager
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         resources.updateConfiguration(config, dm)
 
         super.onCreate(savedInstanceState)
+        installSplashScreen()
         setContentView(com.example.tabatatimer.R.layout.activity_main)
         val navController = this.findNavController(com.example.tabatatimer.R.id.navHostFragment)
         NavigationUI.setupActionBarWithNavController(this, navController)

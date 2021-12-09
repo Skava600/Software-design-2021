@@ -25,4 +25,5 @@
     <style name="Theme.TabataTimer.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.TabataTimer.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>

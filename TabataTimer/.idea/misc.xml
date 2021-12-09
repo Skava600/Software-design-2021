@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/study/6term/ppo/TabataTimer/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.12864583333333332" />
+        <entry key="..\:/study/6term/ppo/TabataTimer/app/src/main/res/drawable/bg_gradient.xml" value="0.13697916666666668" />
         <entry key="..\:/study/6term/ppo/TabataTimer/app/src/main/res/drawable/ic_add_24.xml" value="0.13697916666666668" />
         <entry key="..\:/study/6term/ppo/TabataTimer/app/src/main/res/drawable/ic_add_black_24.xml" value="0.13697916666666668" />
         <entry key="..\:/study/6term/ppo/TabataTimer/app/src/main/res/drawable/ic_add_black_24dp.xml" value="0.13697916666666668" />
@@ -16,6 +17,7 @@
         <entry key="..\:/study/6term/ppo/TabataTimer/app/src/main/res/drawable/ic_play_24.xml" value="0.12864583333333332" />
         <entry key="..\:/study/6term/ppo/TabataTimer/app/src/main/res/drawable/ic_plus.xml" value="0.12864583333333332" />
         <entry key="..\:/study/6term/ppo/TabataTimer/app/src/main/res/drawable/ic_prepare_24.xml" value="0.12864583333333332" />
+        <entry key="..\:/study/6term/ppo/TabataTimer/app/src/main/res/drawable/ic_realm_logo_250.xml" value="0.13697916666666668" />
         <entry key="..\:/study/6term/ppo/TabataTimer/app/src/main/res/drawable/ic_rest_24.xml" value="0.12864583333333332" />
         <entry key="..\:/study/6term/ppo/TabataTimer/app/src/main/res/drawable/ic_search_24.xml" value="0.13697916666666668" />
         <entry key="..\:/study/6term/ppo/TabataTimer/app/src/main/res/drawable/ic_sequence_24.xml" value="0.13697916666666668" />
@@ -23,6 +25,7 @@
         <entry key="..\:/study/6term/ppo/TabataTimer/app/src/main/res/drawable/ic_stopwatch_24.xml" value="0.13697916666666668" />
         <entry key="..\:/study/6term/ppo/TabataTimer/app/src/main/res/drawable/ic_stowatch_24.xml" value="0.24166666666666667" />
         <entry key="..\:/study/6term/ppo/TabataTimer/app/src/main/res/drawable/ic_work_24.xml" value="0.12864583333333332" />
+        <entry key="..\:/study/6term/ppo/TabataTimer/app/src/main/res/drawable/splash_background.xml" value="0.13697916666666668" />
         <entry key="..\:/study/6term/ppo/TabataTimer/app/src/main/res/layout/action_bar.xml" value="0.176" />
         <entry key="..\:/study/6term/ppo/TabataTimer/app/src/main/res/layout/activity_main.xml" value="0.176" />
         <entry key="..\:/study/6term/ppo/TabataTimer/app/src/main/res/layout/activity_timer.xml" value="0.176" />

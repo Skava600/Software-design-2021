@@ -4,10 +4,11 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_timer"
+        android:roundIcon="@mipmap/ic_timer_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.TabataTimer">
+        android:theme="@style/Theme.AppSplash">
         <activity
             android:name="com.example.timer.TimerActivity"
             android:exported="false"
